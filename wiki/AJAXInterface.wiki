@@ -1,0 +1,63 @@
+== Playing a track ==
+
+=== Description ===
+
+Opens a new track if parameters are given. Otherwise the current track is resumed.
+
+Parameters are specified like: http://SERVER/play?SOURCE=KEY
+
+The KEY is achieved by performing a search.
+
+=== Examples ===
+
+  * http://192.168.0.1/play?spotify=spotify:track:3A3WCIkkm5MqGRnc4LT6fz
+  * http://192.168.0.1/play?drive=c:\music\The%20Artist%20-%20The%20Song
+  * http://192.168.0.1/play
+
+=== Returns ===
+
+Nothing
+
+----
+
+== Stopping a track ==
+
+=== Description ===
+
+Stops the currently playing track if any.
+
+=== Examples ===
+
+  * http://192.168.0.1/stop
+
+=== Returns ===
+
+Nothing
+
+----
+
+== Searching for tracks ==
+
+=== Description ===
+
+Performs a search in the music database. Currently only support for searching Spotify.
+
+Parameters are specified like: `http://SERVER/?callback=FUNCTION&q=QUERY
+
+FUNCTION is a JavaScript function like this:
+
+{{{
+function parseResults(tracks) {
+  // iterate through the JSON array tracks
+}
+}}}
+
+== Examples ==
+
+  * http://192.168.0.1/search?callback=parseResults&q=The%20Song
+
+== Returns ==
+
+JSON data structured like this:
+
+`[["artist", "title", "key"], ["artist", "title", "key"], ...]`
