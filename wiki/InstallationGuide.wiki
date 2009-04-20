@@ -1,0 +1,28 @@
+#summary Instructions on how to set up the dogvibes suite
+
+= Introduction =
+
+This project has just started so beware of excessive tweaking.
+
+
+= Procedure =
+
+This needs to be updated with more details.
+
+
+*Usage of Ubuntu 8.10 is presupposed*
+
+`apt-get install subversion` to be able to check out code
+
+=== Vala ===
+  * Download and unpack latest version at http://live.gnome.org/Vala/Release
+  * apt-get install flex bison libglib2.0-dev
+  * ./configure && make install
+  * ldconfig -v
+
+=== libspotify ===
+  * Download and unpack latest version at http://developer.spotify.com/en/libspotify/overview/
+  * make install
+  * ldconfig -v
+
+Required Ubuntu packages: rails, , sqlite3, sqlite3-ruby(?), gstreamer(source?)?, ..., ...
