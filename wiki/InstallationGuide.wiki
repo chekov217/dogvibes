@@ -25,4 +25,22 @@ This needs to be updated with more details.
   * make install
   * ldconfig -v
 
+=== Gstreamer ===
+  * cd yourhomedirectory
+  * mkdir sandbox
+  * mkdir gstreamer-src
+  * cd gstreamer-src
+  * sudo apt-get install liblame-dev libmad0-dev liboil-dev libasound-dev (probably more packages here)
+  * git clone git://anongit.freedesktop.org/gstreamer/gstreamer
+  * git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-base
+  * git clone git://anongit.freedesktop.org/gstreamer/gst-plugin-good
+  * git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-bad
+  * git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-ugly
+  * git clone git://anongit.freedesktop.org/gstreamer/gst-ffmpeg
+  * Iterate for all folders that been checkout in the order you checked them out
+  * Iterate start
+  * cd folder
+  * PKG_CONFIG_PATH=/yourhomedirectory/sandbox/lib/pkgconfig ./autogen.sh --prefix=/yourhomedirectory/sandbox && make install
+  * Iterate stop
+
 Required Ubuntu packages: rails, , sqlite3, sqlite3-ruby(?), gstreamer(source?)?, ..., ...
