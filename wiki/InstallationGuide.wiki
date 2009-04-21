@@ -9,7 +9,9 @@ This project has just started so beware of excessive tweaking.
 
 These instructions apply for Ubuntu 8.10 and might have to be altered for other distributions. Don't forget to run in a context with appropriate permissions, e.g. sudo ;)
 
-Start with: apt-get install cvs subversion git git-core flex bison libglib2.0-dev autoconf libtool libxml2-dev gtk-doc-tools libmp3lame-dev libmad0-dev liboil-dev libasound-dev
+== Dependencies ==
+
+Start with: apt-get install cvs subversion git git-core flex bison libglib2.0-dev autoconf libtool libxml2-dev gtk-doc-tools libmp3lame-dev libmad0-dev liboil-dev libasound-dev libdbus-glib-1-dev libexpat1-dev libstdc++6-4.3-dev
 
 === Vala ===
   * Download and unpack latest version at http://live.gnome.org/Vala/Release
@@ -19,7 +21,7 @@ Start with: apt-get install cvs subversion git git-core flex bison libglib2.0-de
 
 === libspotify ===
   * Download and unpack latest version at http://developer.spotify.com/en/libspotify/overview/
-  * make install
+  * make install prefix=/usr/local
   * ldconfig -v
 
 === GStreamer ===
@@ -33,7 +35,19 @@ Start with: apt-get install cvs subversion git git-core flex bison libglib2.0-de
   * In each of the checked out folders run: PKG_CONFIG_PATH=../sandbox/lib/pkgconfig ./autogen.sh && make install
   * Test your installation with `gst-launch audiotestsrc ! audiotestsink`
 
-=== Interface server ===
-  * Check out 'interface' from the dogvibes repository
+== dogvibes suite ==
 
-Required Ubuntu packages: rails, , sqlite3, sqlite3-ruby(?), gstreamer(source?)?, ..., ...
+  Check out everything from the Google Code repository and install in the following order:
+
+=== gst-spotify-src ===
+  * autogen.sh
+  * make install
+
+=== dogvibes ===
+  * Run `compile`
+  * Edit `dogvibes.conf` and change user from _dogvibes_ to your Linux user name
+  * `cp dogvibes.conf /etc/dbus-1/system.d`
+  * Start server with `runserver`
+
+=== interface ===
+  ...
