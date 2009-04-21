@@ -4,15 +4,17 @@
 
 Opens a new track if parameters are given. Otherwise the current track is resumed.
 
-Parameters are specified like: http://SERVER/play?SOURCE=KEY
+Parameters are specified like: http://SERVER/play?input=INPUT&output=OUTPUT&key=KEY
 
-The KEY is achieved by performing a search.
+  * KEY is achieved by performing a search.
+  * INPUT is an enum specifying the in input source such as Spotify or Local. *NOTE: there is not way to retrieve this info yet!*
+  * OUTPUT is an enum specifying the output destination such as Line or Airport. *NOTE: there is not way to retrieve this info yet!*
 
 === Examples ===
 
-  * http://192.168.0.1/play?spotify=spotify:track:3A3WCIkkm5MqGRnc4LT6fz
-  * http://192.168.0.1/play?drive=c:\music\The%20Artist%20-%20The%20Song
-  * http://192.168.0.1/play
+  * http://192.168.0.1/play?input=0&key=spotify:track:3A3WCIkkm5MqGRnc4LT6fz
+  * http://192.168.0.1/play?input=1&key=c:\music\The%20Artist%20-%20The%20Song
+  * http://192.168.0.1/play?output=0
 
 === Returns ===
 
@@ -61,3 +63,5 @@ function parseResults(tracks) {
 JSON data structured like this:
 
 `[["artist", "title", "key"], ["artist", "title", "key"], ...]`
+
+*NOTE: this call is not implemented like this yet! Avoid using it*
