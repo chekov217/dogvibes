@@ -1,7 +1,7 @@
 #summary First release: Puppy
 
 Release 1: Puppy
-  * Stream from HDD (choose a folder)
+  * ~~Stream from HDD (choose a folder)~~
   * ~~Stream from Spotify (choose a track)~~
   * Perform a search and get results from two different sources at the same time
   * ~~Stream to line out~~
