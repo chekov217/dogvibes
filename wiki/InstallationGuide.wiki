@@ -15,6 +15,7 @@ Start with: apt-get install cvs subversion git git-core flex bison libglib2.0-de
   * Download and unpack latest version at http://live.gnome.org/Vala/Release
   * ./configure && make install
   * ldconfig -v
+  * For the emacs user there are bindings http://live.gnome.org/Vala/Emacs
 
 === libspotify ===
   * Download and unpack latest version at http://developer.spotify.com/en/libspotify/overview/
