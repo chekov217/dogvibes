@@ -1,0 +1,23 @@
+#summary Small tasks to be performed as research before integrating new functionality
+
+= Instructions =
+
+The intention here is to get some investigation work done, not to implement stuff into the framework. Spikes should not be described as "integrate this and that" but rather "install and write a small test app using this and that". Just to get the feel of things. Sometimes a spike may lead to choosing a different approach than was first intended.
+
+= Spikes =
+
+== Uninvestigated ==
+
+  * *GConf* in Vala for storing configuration parameters such as login information
+  * Communicate with PC via *bluetooth* from a cellphone
+  * Create a slimmed down Ubuntu with *Rekonstruktor*
+  * Package source code in a *.deb*
+  * Listen to last.fm via their API
+
+== In the works ==
+
+  * brissmyr: Post stats to *last.fm* via their API
+
+== Done ==
+
+None
