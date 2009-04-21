@@ -31,6 +31,7 @@ Start with: apt-get install cvs subversion git git-core flex bison libglib2.0-de
   * git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-ugly
   * git clone git://anongit.freedesktop.org/gstreamer/gst-ffmpeg
   * In each of the checked out folders run: PKG_CONFIG_PATH=../sandbox/lib/pkgconfig ./autogen.sh && make install
+  * Test your installation with `gst-launch audiotestsrc ! audiotestsink`
 
 === Interface server ===
   * Check out 'interface' from the dogvibes repository
