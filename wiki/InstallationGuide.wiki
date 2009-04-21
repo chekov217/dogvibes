@@ -7,16 +7,12 @@ This project has just started so beware of excessive tweaking.
 
 = Procedure =
 
-This needs to be updated with more details.
+These instructions apply for Ubuntu 8.10 and might have to be altered for other distributions. Don't forget to run in a context with appropriate permissions, e.g. sudo ;)
 
-
-*Usage of Ubuntu 8.10 is presupposed*
-
-`apt-get install subversion` to be able to check out code
+Start with: apt-get install cvs subversion git git-core flex bison libglib2.0-dev autoconf libtool libxml2-dev gtk-doc-tools libmp3lame-dev libmad0-dev liboil-dev libasound-dev
 
 === Vala ===
   * Download and unpack latest version at http://live.gnome.org/Vala/Release
-  * apt-get install flex bison libglib2.0-dev
   * ./configure && make install
   * ldconfig -v
 
@@ -25,22 +21,17 @@ This needs to be updated with more details.
   * make install
   * ldconfig -v
 
-=== Gstreamer ===
-  * cd yourhomedirectory
+=== GStreamer ===
   * mkdir sandbox
-  * mkdir gstreamer-src
-  * cd gstreamer-src
-  * sudo apt-get install liblame-dev libmad0-dev liboil-dev libasound-dev (probably more packages here)
   * git clone git://anongit.freedesktop.org/gstreamer/gstreamer
   * git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-base
-  * git clone git://anongit.freedesktop.org/gstreamer/gst-plugin-good
+  * git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-good
   * git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-bad
   * git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-ugly
   * git clone git://anongit.freedesktop.org/gstreamer/gst-ffmpeg
-  * Iterate for all folders that been checkout in the order you checked them out
-  * Iterate start
-  * cd folder
-  * PKG_CONFIG_PATH=/yourhomedirectory/sandbox/lib/pkgconfig ./autogen.sh --prefix=/yourhomedirectory/sandbox && make install
-  * Iterate stop
+  * In each of the checked out folders run: PKG_CONFIG_PATH=../sandbox/lib/pkgconfig ./autogen.sh && make install
+
+=== Interface server ===
+  * Check out 'interface' from the dogvibes repository
 
 Required Ubuntu packages: rails, , sqlite3, sqlite3-ruby(?), gstreamer(source?)?, ..., ...
