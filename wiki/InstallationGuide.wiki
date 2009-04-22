@@ -30,14 +30,15 @@ Start with:
   * ldconfig -v
 
 === GStreamer ===
-  * mkdir sandbox
+  * mkdir src
+  * cd src
   * git clone git://anongit.freedesktop.org/gstreamer/gstreamer
   * git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-base
   * git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-good
   * git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-bad
   * git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-ugly
   * git clone git://anongit.freedesktop.org/gstreamer/gst-ffmpeg
-  * In each of the checked out folders run: PKG_CONFIG_PATH=../sandbox/lib/pkgconfig ./autogen.sh && make install
+  * In each of the checked out folders run:./autogen.sh && make install
   * Test your installation with `gst-launch audiotestsrc ! audiotestsink`
 
 == dogvibes suite ==
