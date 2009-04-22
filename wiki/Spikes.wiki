@@ -19,7 +19,8 @@ The intention here is to get some investigation work done, not to implement stuf
 == In the works ==
 
   * brissmyr: Post stats to *last.fm* via their API
-  * johan: ./play apex should play millionaire tune on airport express
+  * nystroem: wireless audio modules
+  * nystroem: "search" for a fast linux indexer
 
 == Done ==
 
