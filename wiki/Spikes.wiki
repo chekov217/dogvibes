@@ -12,8 +12,9 @@ The intention here is to get some investigation work done, not to implement stuf
   * Communicate with PC via *bluetooth* from a cellphone
   * Create a slimmed down Ubuntu with *Rekonstruktor*
   * Package source code in a *.deb*
-  * Listen to last.fm via their API
-  * Understand how Vala-Bindings work
+  * Listen to *last.fm* via their API
+  * Understand how *Vala-Bindings* work
+  * How to search/index files on a *remote Windows* machine
 
 == In the works ==
 
