@@ -6,7 +6,7 @@ The intention here is to get some investigation work done, not to implement stuf
 
 = Spikes =
 
-== Uninvestigated ==
+== Uninvestigated (no prio) ==
 
   * *GConf* in Vala for storing configuration parameters such as login information
   * Communicate with PC via *bluetooth* from a cellphone
@@ -15,6 +15,7 @@ The intention here is to get some investigation work done, not to implement stuf
   * Listen to *last.fm* via their API
   * Understand how *Vala-Bindings* work
   * How to search/index files on a *remote Windows* machine
+  * Detect and connect to a Rendevouz or uPnP enabled unit
 
 == In the works ==
 
