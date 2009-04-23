@@ -8,7 +8,6 @@ The intention here is to get some investigation work done, not to implement stuf
 
 == Uninvestigated (no prio) ==
 
-  * *GConf* in Vala for storing configuration parameters such as login information
   * Communicate with PC via *bluetooth* from a cellphone
   * Create a slimmed down Ubuntu with *Rekonstruktor*
   * Package source code in a *.deb*
@@ -25,4 +24,4 @@ The intention here is to get some investigation work done, not to implement stuf
 
 == Done ==
 
-None
+  * brissmyr: *GConf* in Vala for storing configuration parameters such as login information
