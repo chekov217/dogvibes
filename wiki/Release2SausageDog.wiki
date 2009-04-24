@@ -1,4 +1,5 @@
 #summary Second release: Sausage Dog
+#labels Release
 
 Release 2: Sausage Dog
   * Configurable inputs and outputs
