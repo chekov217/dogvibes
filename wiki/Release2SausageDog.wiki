@@ -4,4 +4,7 @@ Release 2: Sausage Dog
   * Configurable inputs and outputs
   * Web UI similar to Spotify based on extJS
   * Persistent connection to Spotify
+  * Stream to mutliple sources at the same time
+  * More structured vala server (object Based)
+  * API release 0.0.1
   * ...
