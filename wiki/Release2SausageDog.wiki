@@ -1,0 +1,7 @@
+#summary Second release: Sausage Dog
+
+Release 2: Sausage Dog
+  * Configurable inputs and outputs
+  * Web UI similar to Spotify based on extJS
+  * Persistent connection to Spotify
+  * ...
