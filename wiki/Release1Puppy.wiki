@@ -1,10 +1,11 @@
 #summary First release: Puppy
+#labels Release
 
 Release 1: Puppy
-  * Stream from HDD (choose a folder)~~
-  * Stream from Spotify (choose a track)
+  * ~~Stream from HDD (choose a folder)~~
+  * ~~Stream from Spotify (choose a track)~~
   * Perform a search and get results from two different sources at the same time
   * ~~Stream to line out~~
-  * Stream to Airport
-  * Prepare source code for distribution
+  * ~~Stream to Airport~~
+  * ~~Prepare source code for distribution~~
   * ~~Installation guide~~
