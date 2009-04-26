@@ -20,9 +20,12 @@ Start with:
 
 === Vala ===
   * Download and unpack latest version at http://live.gnome.org/Vala/Release
+  * wget http://download.gnome.org/sources/vala/0.7/vala-0.7.1.tar.bz2
+  * tar -xvf vala-0.7.1.tar.bz2 && cd vala-0.7.1
   * ./configure && make install
   * ldconfig -v
   * For the emacs user there are bindings http://live.gnome.org/Vala/Emacs
+  * For the us with a good editor  http://informationhunger.blogspot.com/2007/09/vala-and-vim.html
 
 === libspotify ===
   * Download and unpack latest version at http://developer.spotify.com/en/libspotify/overview/
