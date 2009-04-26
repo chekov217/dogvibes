@@ -45,7 +45,8 @@ Start with:
   * git clone git://anongit.freedesktop.org/gstreamer/gst-ffmpeg
   * export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
   * In each of the checked out folders run:./autogen.sh && make install (there are some deps between the packages, so follow the order in the list above)
-  * Test your installation with `gst-launch audiotestsrc ! audiotestsink`
+  * Test your installation with `gst-launch audiotestsrc ! audioconvert ! alsasink`
+
 
 == dogvibes suite ==
 
