@@ -25,7 +25,8 @@ Start with:
   * ./configure && make install
   * ldconfig -v
   * For the emacs user there are bindings http://live.gnome.org/Vala/Emacs
-  * For the us with a good editor  http://informationhunger.blogspot.com/2007/09/vala-and-vim.html
+  * For vim-users: wget "http://live.gnome.org/Vala/Vim?action=AttachFile&do=get&target=vala.vim" -O vaja.vim
+  * http://live.gnome.org/Vala/Vim
 
 === libspotify ===
   * Download and unpack latest version at http://developer.spotify.com/en/libspotify/overview/
