@@ -61,6 +61,7 @@ Start with:
   * Edit `dogvibes.conf` and change user from _dogvibes_ to your Linux user name
   * `cp dogvibes.conf /etc/dbus-1/system.d`
   * Change user and pass for Spotify in setup_spotify.vala
+  * dbus-send --print-reply --system --dest=org.freedesktop.DBus / org.freedesktop.DBus.ReloadConfig
   * Run `compile`
   * Start server with `runserver`
 
