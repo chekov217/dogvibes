@@ -8,4 +8,3 @@ Release 2: Sausage Dog
   * Stream to mutliple sources at the same time
   * More structured vala server (object Based)
   * API release 0.0.1
-  * ...
