@@ -4,17 +4,13 @@
 
 Opens a new track if parameters are given. Otherwise the current track is resumed.
 
-Parameters are specified like: http://SERVER/play?input=INPUT&output=OUTPUT&key=KEY
+Parameters are specified like: http://SERVER/amp/AMP_ID/queue?track=TRACK
 
-  * KEY is achieved by performing a search.
-  * INPUT is an enum specifying the in input source such as Spotify or Local. *NOTE: there is not way to retrieve this info yet!*
-  * OUTPUT is an enum specifying the output destination such as Line or Airport. *NOTE: there is not way to retrieve this info yet!*
+  * TRACK is achieved by performing a search
 
 === Examples ===
 
-  * http://192.168.0.1/play?input=0&key=spotify:track:3A3WCIkkm5MqGRnc4LT6fz
-  * http://192.168.0.1/play?input=1&key=c:\music\The%20Artist%20-%20The%20Song
-  * http://192.168.0.1/play?output=0
+  * http://192.168.0.1/amp/0/queue?track=1000
 
 === Returns ===
 
@@ -30,7 +26,7 @@ Stops the currently playing track if any.
 
 === Examples ===
 
-  * http://192.168.0.1/stop
+  * http://192.168.0.1/amp/0/stop
 
 === Returns ===
 
@@ -44,7 +40,7 @@ Nothing
 
 Performs a search in the music database. Currently only support for searching Spotify.
 
-Parameters are specified like: `http://SERVER/?callback=FUNCTION&q=QUERY
+Parameters are specified like: `http://SERVER/dogvibes/search?query=QUERY&callback=FUNCTION
 
 FUNCTION is a JavaScript function like this:
 
@@ -56,12 +52,10 @@ function parseResults(tracks) {
 
 == Examples ==
 
-  * http://192.168.0.1/search?callback=parseResults&q=The%20Song
+  * http://192.168.0.1/dogvibes/search?query=Oasis&callback=parseResults
 
 == Returns ==
 
 JSON data structured like this:
 
 `[["artist", "title", "key"], ["artist", "title", "key"], ...]`
-
-*NOTE: this call is not implemented like this yet! Avoid using it*
