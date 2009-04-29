@@ -15,6 +15,8 @@ The intention here is to get some investigation work done, not to implement stuf
   * Understand how *Vala-Bindings* work
   * How to search/index files on a *remote Windows* machine
   * Learn about candidates to *Zero Conf*, i.e. Bonjour, Avahi
+  * Setup, store and retrieve data from MySQL/SQLite with Vala
+  * Use inotify to detect that a file is added to a directory
 
 == In the works ==
 
