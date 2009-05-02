@@ -17,6 +17,7 @@ The intention here is to get some investigation work done, not to implement stuf
   * Learn about candidates to *Zero Conf*, i.e. Bonjour, Avahi
   * Setup, store and retrieve data from MySQL/SQLite with Vala
   * Use inotify to detect that a file is added to a directory
+  * write a songbird frontend (extension) to dogvibes
 
 == In the works ==
 
