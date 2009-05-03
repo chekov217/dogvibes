@@ -1,3 +1,4 @@
 #summary Release 3.
 #labels Release
   * Web UI similar to Spotify based on extJS
+  * Persistent connection to Spotify
