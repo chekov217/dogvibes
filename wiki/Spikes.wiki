@@ -15,16 +15,17 @@ The intention here is to get some investigation work done, not to implement stuf
   * Understand how *Vala-Bindings* work
   * How to search/index files on a *remote Windows* machine
   * Learn about candidates to *Zero Conf*, i.e. Bonjour, Avahi
-  * Setup, store and retrieve data from MySQL/SQLite with Vala
-  * Use inotify to detect that a file is added to a directory
-  * write a songbird frontend (extension) to dogvibes
+  * Write a songbird frontend (extension) to dogvibes
+  * Understand and demo COMET technique, i.e. send events over the API (http://www.cometdaily.com, http://www.devpro.it/xmlsocket/)
+  * Dig into XSPF to be used when exporting and importing playlists
 
 == In the works ==
 
-  * brissmyr: Post stats to *last.fm* via their API
-  * nystroem: wireless audio modules
-  * nystroem: "search" for a fast linux indexer
+  * seb: Post stats to *last.fm* via their API
+  * nystroem: Wireless audio modules
 
 == Done ==
-
+  * brissmyr: Use inotify to detect that a file is added to a directory
+  * brissmyr: Setup, store and retrieve data from MySQL/SQLite with Vala
+  * brissmyr: Write a file indexer
   * brissmyr: *GConf* in Vala for storing configuration parameters such as login information
