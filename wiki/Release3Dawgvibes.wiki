@@ -1,4 +1,23 @@
-#summary Release 3.
+#summary Release 3: Dawgvibes
 #labels Release
-  * Web UI similar to Spotify based on extJS
-  * Persistent connection to Spotify
+
+== Mindset ==
+
+A friend asks you "can you show me a demo of dogvibes?"
+
+== Description ==
+
+This release shall be ready for demo. That includes a stable backend, a mature API, a decent client and some cool features such as Last.fm scrobbling.
+
+== Reward ==
+
+Dinner at Jensens Bofhus in Malmoe
+
+== Tasks ==
+
+  * briss, wallin?: Web UI similar to Spotify based on extJS
+  * briss, gyllen: Persistent connection to Spotify, both from server and from source
+  * joel: Playback without glitches
+  * wallin: last.fm scrobbling
+  * briss, gyllen: First version of web API
+  * ...
