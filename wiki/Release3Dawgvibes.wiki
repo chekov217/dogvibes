@@ -20,4 +20,4 @@ Dinner at Jensens Bofhus in Malmoe
   * joel: Playback without glitches
   * wallin: last.fm scrobbling
   * briss, gyllen: First version of web API
-  * ...
+  * johanny, iphone web UI based on uikit
