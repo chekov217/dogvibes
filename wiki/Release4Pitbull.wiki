@@ -17,4 +17,5 @@ Impress on other similar services
   * Playlists
   * New speaker: HTTP
   * New source: Youtube
+  * Save as...
   * Last.fm scrobbling
