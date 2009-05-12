@@ -1,0 +1,19 @@
+#summary Release 4: Pitbull
+
+== Mindset ==
+
+...
+
+== Description ==
+
+...
+
+== Reward ==
+
+...
+
+== Tasks ==
+
+  * Playlists
+  * HTTP streaming
+  * Last.fm scrobbling
