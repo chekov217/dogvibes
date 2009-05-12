@@ -2,7 +2,7 @@
 
 == Mindset ==
 
-...
+Impress on other similar services
 
 == Description ==
 
@@ -15,5 +15,6 @@
 == Tasks ==
 
   * Playlists
-  * HTTP streaming
+  * New speaker: HTTP
+  * New source: Youtube
   * Last.fm scrobbling
