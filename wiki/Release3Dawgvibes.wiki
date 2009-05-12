@@ -18,6 +18,5 @@ Dinner at Jensens Bofhus in Malmoe
   * briss, wallin?: Web UI similar to Spotify based on extJS
   * briss, gyllen: Persistent connection to Spotify, both from server and from source
   * joel: Playback without glitches
-  * wallin: last.fm scrobbling
   * briss, gyllen: First version of web API
   * johanny, iphone web UI based on uikit
