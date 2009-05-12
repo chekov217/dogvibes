@@ -32,7 +32,7 @@ Start with:
   * Download and unpack latest version at http://developer.spotify.com/en/libspotify/overview/
   * wget http://developer.spotify.com/download/libspotify/libspotify-0.0.1-linux6-x86.tar.gz
   * tar -xvf libspotify-0.0.1-linux6-x86.tar.gz
-  * make install prefix=/usr/local
+  * make install prefix=/usr
   * ldconfig -v
 
 === GStreamer ===
