@@ -7,7 +7,7 @@ A friend asks you "can you show me a demo of dogvibes?"
 
 == Description ==
 
-This release shall be ready for demo. That includes a stable backend, a mature API, a decent client and some cool features such as Last.fm scrobbling.
+This release shall be ready for demo. That includes a stable backend, a mature API and a decent client.
 
 == Reward ==
 
