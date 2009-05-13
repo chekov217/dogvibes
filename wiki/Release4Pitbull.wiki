@@ -19,3 +19,4 @@ Impress on other similar services
   * New source: Youtube
   * Save as...
   * Last.fm scrobbling
+  * Album art from Amazon API
