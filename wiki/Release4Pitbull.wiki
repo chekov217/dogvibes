@@ -1,4 +1,5 @@
 #summary Release 4: Pitbull
+#labels Release
 
 == Mindset ==
 
