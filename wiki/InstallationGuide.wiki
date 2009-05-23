@@ -7,12 +7,12 @@ This project has just started so beware of excessive tweaking.
 
 = Procedure =
 
-These instructions apply for Ubuntu 8.10 and might have to be altered for other distributions. Don't forget to run in a context with appropriate permissions, e.g. sudo ;)
+These instructions apply for Ubuntu 9.04 and might have to be altered for other distributions. Don't forget to run in a context with appropriate permissions, e.g. sudo ;)
 
 == Dependencies ==
 
 Start with:
-`apt-get install cvs subversion git git-core flex bison libglib2.0-dev autoconf libtool libxml2-dev gtk-doc-tools libmp3lame-dev libmad0-dev liboil-dev libasound-dev libdbus-glib-1-dev libexpat1-dev libstdc++6-4.3-dev libsqlite3-dev python-json python-pysqlite3`
+`apt-get install cvs subversion git git-core flex bison libglib2.0-dev autoconf libtool libxml2-dev gtk-doc-tools libmp3lame-dev libmad0-dev liboil-dev libasound-dev libdbus-glib-1-dev libexpat1-dev libstdc++6-4.3-dev libsqlite3-dev python-tagpy python-pysqlite3`
 
 *libmms* - required for internet radio (mms:)
   * Download and build latest libmms from http://sourceforge.net/projects/libmms
@@ -54,13 +54,14 @@ Start with:
   Check out everything from the Google Code repository and install in the following order:
 
 === gst-spotify-src ===
-  * autogen.sh
+  * autogen.sh --prefix=/usr/local
   * make install
 
 === dogvibes ===
   * Edit `dogvibes.conf` and change user from _dogvibes_ to your Linux user name
   * `cp dogvibes.conf /etc/dbus-1/system.d`
-  * Change user and pass for Spotify in setup_spotify.vala
+  * Change "deny" to "allow" for "method_call" in /etc/dbus-1/system.conf
+  * Change user and pass for Spotify in server.py
   * dbus-send --print-reply --system --dest=org.freedesktop.DBus / org.freedesktop.DBus.ReloadConfig
   * Start server with `./server.py`from the src directory
   * The web server is attached to port 2000
