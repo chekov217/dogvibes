@@ -19,5 +19,7 @@ Impress on other similar services
   * New speaker: HTTP
   * New source: Youtube
   * Save as...
+  * Streaming
+  * Bluetooth control
   * Last.fm scrobbling
   * Album art from Amazon API
