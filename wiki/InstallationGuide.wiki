@@ -12,7 +12,7 @@ These instructions apply for Ubuntu 9.04 and might have to be altered for other 
 == Dependencies ==
 
 Start with:
-`apt-get install cvs subversion git git-core flex bison libglib2.0-dev autoconf libtool libxml2-dev gtk-doc-tools libmp3lame-dev libmad0-dev liboil-dev libasound-dev libdbus-glib-1-dev libexpat1-dev libstdc++6-4.3-dev libsqlite3-dev python-tagpy python-pysqlite3`
+`apt-get install cvs subversion git git-core flex bison libglib2.0-dev autoconf libtool libxml2-dev gtk-doc-tools libmp3lame-dev libmad0-dev liboil-dev libasound-dev libdbus-glib-1-dev libexpat1-dev libstdc++6-4.3-dev libsqlite3-dev python-tagpy python-pysqlite3 libid3tag0-dev`
 
 *libmms* - required for internet radio (mms:)
   * Download and build latest libmms from http://sourceforge.net/projects/libmms
