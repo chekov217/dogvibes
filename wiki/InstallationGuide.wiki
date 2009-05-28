@@ -18,7 +18,7 @@ Start with:
   * Download and build latest libmms from http://sourceforge.net/projects/libmms
 
 
-=== Vala ===
+=== Vala (not needed in dogvibes2) ===
   * Download and unpack latest version at http://live.gnome.org/Vala/Release
   * wget http://download.gnome.org/sources/vala/0.7/vala-0.7.1.tar.bz2
   * tar -xvf vala-0.7.1.tar.bz2 && cd vala-0.7.1
@@ -53,15 +53,24 @@ Start with:
 
   Check out everything from the Google Code repository and install in the following order:
 
-=== gst-spotify-src ===
+=== gst-spot-src ===
+  * cd ./gst-spot-src
   * autogen.sh --prefix=/usr/local
   * make install
 
-=== dogvibes ===
+=== D-bus config (not needed in dogvibes2) ===
   * Edit `dogvibes.conf` and change user from _dogvibes_ to your Linux user name
   * `cp dogvibes.conf /etc/dbus-1/system.d`
   * Change "deny" to "allow" for "method_call" in /etc/dbus-1/system.conf
-  * Change user and pass for Spotify in server.py
   * dbus-send --print-reply --system --dest=org.freedesktop.DBus / org.freedesktop.DBus.ReloadConfig
-  * Start server with `./server.py`from the src directory
+
+=== spotifypythonbindings ===
+  * cd ./spotifypythonbindings
+  * sudo apt-get install python2.6-dev
+  * python setup.py build
+  * sudo python setup.py install
+
+=== Start Dogvibes ===
+  * Change user and pass for Spotify in server.py
+  * Start server with `./server.py`from the ./dogvibes2/src directory
   * The web server is attached to port 2000
