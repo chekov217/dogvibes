@@ -5,7 +5,7 @@
 This project has just started so beware of excessive tweaking.
 
 
-= Procedure =
+= Installation details specific to Linux =
 
 These instructions apply for Ubuntu 9.04 and might have to be altered for other distributions. Don't forget to run in a context with appropriate permissions, e.g. sudo ;)
 
@@ -13,20 +13,6 @@ These instructions apply for Ubuntu 9.04 and might have to be altered for other 
 
 Start with:
 `apt-get install cvs subversion git git-core flex bison libglib2.0-dev autoconf libtool libxml2-dev gtk-doc-tools libmp3lame-dev libmad0-dev liboil-dev libasound-dev libdbus-glib-1-dev libexpat1-dev libstdc++6-4.3-dev libsqlite3-dev python-tagpy python-pysqlite3 libid3tag0-dev`
-
-*libmms* - required for internet radio (mms:)
-  * Download and build latest libmms from http://sourceforge.net/projects/libmms
-
-
-=== Vala (not needed in dogvibes2) ===
-  * Download and unpack latest version at http://live.gnome.org/Vala/Release
-  * wget http://download.gnome.org/sources/vala/0.7/vala-0.7.1.tar.bz2
-  * tar -xvf vala-0.7.1.tar.bz2 && cd vala-0.7.1
-  * ./configure && make install
-  * ldconfig -v
-  * For the emacs user there are bindings http://live.gnome.org/Vala/Emacs
-  * For vim-users: wget "http://live.gnome.org/Vala/Vim?action=AttachFile&do=get&target=vala.vim" -O vaja.vim
-  * http://live.gnome.org/Vala/Vim
 
 === libspotify ===
   * Download and unpack latest version at http://developer.spotify.com/en/libspotify/overview/
@@ -48,33 +34,22 @@ Start with:
   * In each of the checked out folders run:./autogen.sh && make install (there are some deps between the packages, so follow the order in the list above)
   * Test your installation with `gst-launch audiotestsrc ! audioconvert ! alsasink`
 
-
-== dogvibes suite ==
-
-  Check out everything from the Google Code repository and install in the following order:
-
 === gst-spot-src ===
   * cd ./gst-spot-src
   * autogen.sh --prefix=/usr/local
   * make install
 
-=== D-bus config (not needed in dogvibes2) ===
-  * Edit `dogvibes.conf` and change user from _dogvibes_ to your Linux user name
-  * `cp dogvibes.conf /etc/dbus-1/system.d`
-  * Change "deny" to "allow" for "method_call" in /etc/dbus-1/system.conf
-  * dbus-send --print-reply --system --dest=org.freedesktop.DBus / org.freedesktop.DBus.ReloadConfig
+= Installation details specific to OS X =
 
-=== spotifypythonbindings ===
-  * cd ./spotifypythonbindings
-  * sudo apt-get install python2.6-dev
-  * python setup.py build
-  * sudo python setup.py install
+== Dependencies ==
+  * Install the latest Xcode from Apple
+  * Install macports (macports.org)
+  * sudo port install py25-gst-python
 
-=== Start Dogvibes ===
+=== libopenspotify ===
+  * TBD
+
+= Start Dogvibes =
   * Change user and pass for Spotify in server.py
   * Start server with `./server.py`from the ./dogvibes2/src directory
   * The web server is attached to port 2000
-
-=== Install on OS X ===
-  * Install port (macports.org)
-  * port install py25-gst-python
