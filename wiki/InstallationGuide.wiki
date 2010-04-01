@@ -74,3 +74,7 @@ Start with:
   * Change user and pass for Spotify in server.py
   * Start server with `./server.py`from the ./dogvibes2/src directory
   * The web server is attached to port 2000
+
+=== Install on OS X ===
+  * Install port (macports.org)
+  * port install py25-gst-python
