@@ -44,10 +44,19 @@ Start with:
 == Dependencies ==
   * Install the latest Xcode from Apple
   * Install macports (macports.org)
-  * sudo port install py25-gst-python
+  * sudo port install py26-gst-python
+  * sudo port install py26-cjson
+  * sudo port install libvorbis
 
 === libopenspotify ===
-  * TBD
+  * git clone git://github.com/noahwilliamsson/openspotify.git
+  * Change the following in openspotify/libopenspotify/Makefile:
+{{{
+-CFLAGS = -Wall -ggdb -I../include -fPIC -O2
+-LDFLAGS = -lcrypto -lresolv -lz -lvorbisfile
++CFLAGS = -Wall -ggdb -I../include -I/opt/local/include -fPIC -O2
++LDFLAGS = -lcrypto -lresolv -lz -lvorbisfile -L/opt/local/lib
+}}}
 
 = Start Dogvibes =
   * Change user and pass for Spotify in server.py
