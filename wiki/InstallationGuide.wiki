@@ -57,6 +57,12 @@ Start with:
 +CFLAGS = -Wall -ggdb -I../include -I/opt/local/include -fPIC -O2
 +LDFLAGS = -lcrypto -lresolv -lz -lvorbisfile -L/opt/local/lib
 }}}
+  * sudo make prefix=/opt/local install
+
+=== gst-spot-src ===
+  * cd ./gst-spot-src
+  * autogen.sh --prefix=/*opt*/local
+  * make install
 
 = Start Dogvibes =
   * Change user and pass for Spotify in server.py
