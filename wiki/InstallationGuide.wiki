@@ -46,6 +46,7 @@ Start with:
   * Install macports (macports.org)
   * sudo port install py26-gst-python
   * sudo port install py26-cjson
+  * sudo port install py26-pil
   * sudo port install libvorbis
 
 === libopenspotify ===
