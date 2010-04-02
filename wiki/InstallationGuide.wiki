@@ -16,9 +16,9 @@ Start with:
 
 === libspotify ===
   * Download and unpack latest version at http://developer.spotify.com/en/libspotify/overview/
-  * wget http://developer.spotify.com/download/libspotify/libspotify-0.0.1-linux6-x86.tar.gz
+  * Currently its 0.0.3, wget http://developer.spotify.com/download/libspotify/libspotify-0.0.3-linux6-i686.tar.gz (use x86_64 if needed, see the site)
   * tar -xvf libspotify-0.0.1-linux6-x86.tar.gz && cd libspotify-0.0.1-linux6-x86.tar
-  * make install prefix=/usr
+  * make install prefix=/usr/local
   * ldconfig -v
 
 === GStreamer ===
@@ -66,6 +66,6 @@ Start with:
   * make install
 
 = Start Dogvibes =
-  * Change user and pass for Spotify in server.py
-  * Start server with `./server.py`from the ./dogvibes2/src directory
+  * Change user and pass for Spotify in server.py or use the env variables
+  * Start server with `SPOTIFY_USER=dog SPOTIFY_PASSWORD=vibes ./server.py`from the ./dogvibes2/src directory
   * The web server is attached to port 2000
