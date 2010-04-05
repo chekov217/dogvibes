@@ -63,6 +63,7 @@ Start with:
 === gst-spot-src ===
   * cd ./gst-spot-src
   * autogen.sh --prefix=/*opt*/local
+  * Make sure your path has this order, PATH=/opt/local/bin:/usr/bin:/bin with opt/local first, so we use the newest tools for the job
   * make install
 
 = Start Dogvibes =
