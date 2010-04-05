@@ -48,6 +48,8 @@ Start with:
   * sudo port install py26-cjson
   * sudo port install py26-pil
   * sudo port install libvorbis
+  * Test your installation with gst-launch:
+    `gst-launch audiotestsrc ! audioconvert ! osxaudiosink`
 
 === libopenspotify ===
   * git clone git://github.com/noahwilliamsson/openspotify.git
