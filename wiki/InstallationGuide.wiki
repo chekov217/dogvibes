@@ -14,6 +14,9 @@ These instructions apply for Ubuntu 9.04 and might have to be altered for other 
 Start with:
 `apt-get install cvs subversion git git-core flex bison libglib2.0-dev autoconf libtool libxml2-dev gtk-doc-tools libmp3lame-dev libmad0-dev liboil-dev libasound-dev libdbus-glib-1-dev libexpat1-dev libstdc++6-4.3-dev libsqlite3-dev python-tagpy python-pysqlite3 libid3tag0-dev python-cjson`
 
+For gentoo, use emerge instead. Get python-cjson from here and add it to a custom overlay and emerge: http://www.ebuildfind.net/application/python-cjson/
+
+
 === libspotify ===
   * Download and unpack latest version at http://developer.spotify.com/en/libspotify/overview/
   * Currently its 0.0.3, wget http://developer.spotify.com/download/libspotify/libspotify-0.0.3-linux6-i686.tar.gz (use x86_64 if needed, see the site)
