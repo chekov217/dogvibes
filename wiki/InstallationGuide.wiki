@@ -81,6 +81,6 @@ make install #run as privileged user (i.e. sudo)
 cd dogvibes/dogvibes/src
 SPOTIFY_USER=user SPOTIFY_PASSWORD=pass ./twisted_server.py
 }}}
-  * Steer your browser to www.dogvibes.com.
+  * Steer your browser to http://www.dogvibes.com.
   * Enter ws://yourserverip:9999 when promted.
   * Enjoy :)
