@@ -83,4 +83,6 @@ SPOTIFY_USER=user SPOTIFY_PASSWORD=pass ./twisted_server.py
 }}}
   * Steer your browser to http://www.dogvibes.com.
   * Enter ws://yourserverip:9999 when promted.
+  * or just start a localwebserver and use clients/spotify_clone and try index.html, use python -m SimpleHTTPServer in the spotify_clone dir to start a simple server.
+  * to use the websockets you need chrome/safari or otherwise use http://ip:2000
   * Enjoy :)
