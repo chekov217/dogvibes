@@ -1,5 +1,7 @@
 #summary Instructions on how to set up the dogvibes suite
 
+This product uses SPOTIFY(R) CORE but is not endorsed, certified or otherwise approved in any way by Spotify. Spotify is the registered trade mark of the Spotify Group
+
 = Introduction =
 
 This project has just started so beware of excessive tweaking. Since its start it has gotten much easier to install dogvibes.
