@@ -1,9 +1,0 @@
-#summary Second release: Sausage Dog
-#labels Release
-
-Release 2: Sausage Dog
-  * Configurable inputs and outputs
-  * Persistent connection to Spotify
-  * Stream to mutliple sources at the same time
-  * More structured vala server (object Based)
-  * API release 0.0.1
