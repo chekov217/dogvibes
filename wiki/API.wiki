@@ -1,0 +1,26 @@
+#summary How to control the server from a client
+
+= Introduction =
+
+There are two options if you want to control the Dogvibes server:
+  * HMTL
+  * !WebSocket
+
+Both methods yields the same results, however using !WebSocket is strongly recommended since communication will be quicker and allows for push updates. The HTML method only supports pulling data from the server, i.e. no status updates will be pushed to the client. If the current server state needs to be known (which is mostly the case several times every second), status retrieval is done by an request. Instead when using !WebSockets, status updates are pushed to all the connected clients when the state of the server is changed, e.g. someone adds a track to a playlist or pauses the music. Some actions, such as fetching cover art or listing a playlist, doesn't change the server state, thus will not push an update.
+
+
+= Details =
+
+The commands are structured as paths like this:
+
+ `/dogvibes/search?query=Oasis`
+
+Return values are structured as [http://www.json.org/ JSON] like this:
+
+ `{"result": [{"album": "Oasis", "duration": 389227, "artist": "Soundscapes - Relaxing Music", "uri": "spotify:track:2OBKFZCMYmA2uMfDYNBIds", "title": "Oasis"}, {"album": "Stop The Clocks", "duration": 258000, "artist": "Oasis", "uri": "spotify:track:06UfBBDISthj1ZJAtX4xjj", "title": "Wonderwall"}], "error": 0}`
+
+On the top level of the structure there is always the field _error_ which can be one of the following:
+  * 0 (OK): The command was executed without any errors
+  * 1 (NoSuchMethod): The specified method doesn't exist
+  * 2 (ParameterMissing): A required parameter was omitted from the request
+  * 3 (ValueError): Well-formatted request, but the result might not be what was intended. This can arise for example when adding a track to a playlist that doesn't exists
