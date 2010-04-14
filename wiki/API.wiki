@@ -21,6 +21,21 @@ Return values are structured as [http://www.json.org/ JSON] like this:
 
 On the top level of the structure there is always the field _error_ which can be one of the following:
   * 0 (OK): The command was executed without any errors
-  * 1 (NoSuchMethod): The specified method doesn't exist
-  * 2 (ParameterMissing): A required parameter was omitted from the request
-  * 3 (ValueError): Well-formatted request, but the result might not be what was intended. This can arise for example when adding a track to a playlist that doesn't exists
+  * 1 (!NoSuchMethod): The specified method doesn't exist
+  * 2 (!ParameterMissing): A required parameter was omitted from the request
+  * 3 (!ValueError): Well-formatted request, but the result might not be what was intended. This can arise for example when adding a track to a playlist that doesn't exists
+
+= Commands =
+
+_This section is just a test. Needs some nice formatting before adding more commands_
+
+== Search for music ==
+  * Object: dogvibes
+  * Method: search
+  * Parameters: query
+
+== Connect speaker outputs ==
+Connects a _Speaker_ to an _Amp_
+  * Object: amp
+  * Method: connectSpeaker
+  * Parameters: nbr
