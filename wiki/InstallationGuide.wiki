@@ -1,13 +1,12 @@
 #summary Instructions on how to set up the dogvibes suite
 
-This product uses SPOTIFY(R) CORE but is not endorsed, certified or otherwise approved in any way by Spotify. Spotify is the registered trade mark of the Spotify Group
-
 = Introduction =
 
+This product uses SPOTIFY(R) CORE but is not endorsed, certified or otherwise approved in any way by Spotify. Spotify is the registered trade mark of the Spotify Group
+
+= Linux Installation =
+
 This project has just started so beware of excessive tweaking. Since its start it has gotten much easier to install dogvibes.
-
-
-= Installation details specific to Linux =
 
 These instructions apply for Ubuntu 9.04 and might have to be altered for other distributions. Don't forget to run in a context with appropriate permissions, e.g. sudo ;)
 
@@ -27,17 +26,17 @@ For gentoo, use emerge instead. Get python-cjson from here and add it to a custo
 
 == Libspotify ==
   * Download and unpack latest version at http://developer.spotify.com/en/libspotify/overview/
-  * Currently its 0.0.3
-  * Install it.
+  * Currently its 0.0.4
 {{{
-wget http://developer.spotify.com/download/libspotify/libspotify-0.0.3-linux6-i686.tar.gz # use x86_64 if needed, see the site
-tar -xvf libspotify-0.0.3-linux6-i686.tar.gz && cd libspotify-0.0.3-linux6-i686
+wget http://developer.spotify.com/download/libspotify/libspotify-0.0.4-linux6-i686.tar.gz
+# use x86_64 if needed, see the site
+tar -xvf http://developer.spotify.com/download/libspotify/libspotify-0.0.4-linux6-i686.tar.gz
+cd libspotify-0.0.4-linux6-i686
 make install prefix=/usr/local #run as privileged user (i.e. sudo)
 ldconfig -v #run as privileged user (i.e. sudo)
-cd ..
 }}}
 
-=== Fetch and install dogvibes code ===
+== Fetch and install dogvibes code ==
   * Fetch the dogvibes code from googlecode.
   * Install gstreamer source.
 {{{
@@ -48,7 +47,7 @@ make install #run as privileged user (i.e. sudo)
 }}}
   * Jump to section Start Dogvibes.
 
-= Installation details specific to OS X =
+= Mac OS X Installation =
 
 == Dependencies ==
   * Install the latest Xcode from Apple
@@ -60,7 +59,8 @@ make install #run as privileged user (i.e. sudo)
   * Test your installation with gst-launch:
     `gst-launch audiotestsrc ! audioconvert ! osxaudiosink`
 
-=== libopenspotify ===
+~~~
+== libopenspotify ==
   * git clone git://github.com/noahwilliamsson/openspotify.git
   * Change the following in openspotify/libopenspotify/Makefile:
 {{{
@@ -70,8 +70,16 @@ make install #run as privileged user (i.e. sudo)
 +LDFLAGS = -lcrypto -lresolv -lz -lvorbisfile -L/opt/local/lib
 }}}
   * sudo make prefix=/opt/local install
+~~~
+== Libspotify ==
+  * Download and unpack latest version at http://developer.spotify.com/en/libspotify/overview/
+  * Currently its 0.0.4
+{{{
+wget http://developer.spotify.com/download/libspotify/libspotify-0.0.4-darwin.zip
+FIXME:
+}}}
 
-=== gst-spot-src ===
+== gst-spot-src ==
   * cd ./gst-spot-src
   * autogen.sh --prefix=/*opt*/local
   * Make sure your path has this order, PATH=/opt/local/bin:/usr/bin:/bin with opt/local first, so we use the newest tools for the job
@@ -89,3 +97,5 @@ SPOTIFY_USER=user SPOTIFY_PASSWORD=pass ./twisted_server.py
   * or just start a localwebserver and use clients/spotify_clone and try index.html, use python -m SimpleHTTPServer in the spotify_clone dir to start a simple server.
   * to use the websockets you need chrome/safari or otherwise use http://ip:2000
   * Enjoy :)
+
+= Clients =
