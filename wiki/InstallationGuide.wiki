@@ -80,11 +80,13 @@ This is quite heavy at the moment (500+Mb)
   * Currently its 0.0.4
 {{{
 wget http://developer.spotify.com/download/libspotify/libspotify-0.0.4-darwin.zip
-unzip ...
+unzip libspotify-0.0.4-darwin.zip
+cd libspotify-0.0.4-darwin
+cp libspotify.framework/libspotify /opt/local/lib/libspotify.so
+cp libspotify.framework/Headers/api.h /opt/local/include/api.h
+cp -r libspotify.framework /Libraries
 }}}
-  * Copy the file `libspotify.framework/Versions/0.0.4/Headers/api.h` to `<dogvibes root>/gst-spot-src/src/`
-  * Copy the directory `libspotify.framework` to `/Libraries`
-
+  
 == gst-spot-src ==
   * Make sure your path has this order, PATH=/opt/local/bin:/usr/bin:/bin with opt/local first, so we use the newest tools for the job
 {{{
