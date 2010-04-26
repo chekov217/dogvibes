@@ -29,6 +29,36 @@ On the top level of the structure there is always the field _error_ which can be
 
 _This section is just a test. Needs some nice formatting before adding more commands_
 
+== AMP commands ==
+
+|| *Command* || *Description* || *Parameter(s)* || *Parameter description* ||
+|| /getStatus || Returns the servers current status || - || - ||
+|| /nextTrack || Plays the next track in the play queue || - || - ||
+|| /previousTrack || Plays the previouse track in the play queue || - || - ||
+|| /play || Start playing music if there are tracks in the play queue || - || - ||
+|| /pause || Pause music || - || - ||
+|| /playTrack || Plays a specifik track in the play queue || nbr || Track number ||
+|| /seek || Seeks to a position in the song currently playing || mseconds|| Position in milliseconds ||
+|| /setVolume || Set the playback volume || level || number between 0 - 1 ||
+|| /queue|| Adds a track to the play queue || uri || Track URI ||
+|| /remove || Remove track from play queue || nbr || Track ID ||
+|| /getAllTracksInQueue || Get all tracks in the play queue || - || - ||
+|| /getPlayedMilliSeconds || Get number of milliseconds played in the current song || - || - ||
+
+== Dogvibes Commands == 
+|| *Command* || *Description* || *Parameter(s)* || *Parameter description* ||
+|| /getAllPlaylists || Get all playlists || - || - ||
+|| /getAllTracksInPlaylist || Get all tracks in a playlist || playlist_id || Playlist ID ||
+|| /createPlaylist || Create a new playlist || name || New playlist name ||
+|| /removePlaylist || Remove a playlist || id || Playlist ID ||
+|| /addTrackToPlaylist || Adds a track to a playlist || playlist_id || Playlist ID ||
+|| || || uri || Track URI ||
+|| /removeTrackFromPlaylist || Remove a track from a playlist || playlist_id || Playlist ID ||
+|| || || nbr || Track ID number in playlist ||
+|| /search || Search for a track || query || Query string ||
+|| /getAlbumArt || Returns an album art image || uri || Track URI ||
+|| || || size || Album art size in pixels ||
+
 == Search for music ==
   * Object: dogvibes
   * Method: search
