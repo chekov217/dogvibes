@@ -50,11 +50,13 @@ make install #run as privileged user (i.e. sudo)
 = Mac OS X Installation =
 
 == Dependencies ==
+This is quite heavy at the moment (500+Mb)
   * Install the latest Xcode from Apple
   * Install macports (macports.org)
   * sudo port install py26-gst-python
   * sudo port install py26-cjson
   * sudo port install py26-pil
+  * sudo port install gst-plugins-good
   * sudo port install libvorbis
   * Test your installation with gst-launch:
     `gst-launch audiotestsrc ! audioconvert ! osxaudiosink`
@@ -76,21 +78,25 @@ make install #run as privileged user (i.e. sudo)
   * Currently its 0.0.4
 {{{
 wget http://developer.spotify.com/download/libspotify/libspotify-0.0.4-darwin.zip
-FIXME:
+unzip ...
 }}}
+  * Copy the file `libspotify.framework/Versions/0.0.4/Headers/api.h` to `<dogvibes root>/gst-spot-src/src/`
+  * Copy the directory `libspotify.framework` to `/Libraries`
 
 == gst-spot-src ==
-  * cd ./gst-spot-src
-  * autogen.sh --prefix=/*opt*/local
   * Make sure your path has this order, PATH=/opt/local/bin:/usr/bin:/bin with opt/local first, so we use the newest tools for the job
-  * make install
-
+{{{
+cd ./gst-spot-src 
+autogen.sh --prefix=/opt/local
+sudo make install
+}}}
 = Start Dogvibes =
   * Change to directory where the dogvibes suite is located.
+  * To set Spotify username/password you can user either environment variables (SPOTIFY_USER=user SPOTIFY_PASSWORD=pass) or edit the file 'dogvibes/src/dogvibes.conf'
   * Start server.
 {{{
-cd dogvibes/dogvibes/src
-SPOTIFY_USER=user SPOTIFY_PASSWORD=pass ./twisted_server.py
+cd <dogvibes root>/dogvibes/src
+python2.6 ./server.py
 }}}
   * Steer your browser to http://www.dogvibes.com.
   * Enter ws://yourserverip:9999 when promted.
