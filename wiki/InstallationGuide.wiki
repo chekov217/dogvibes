@@ -1,5 +1,7 @@
 #summary Instructions on how to set up the dogvibes suite
 
+<wiki:toc max_depth="2" />
+
 = Introduction =
 
 This product uses SPOTIFY(R) CORE but is not endorsed, certified or otherwise approved in any way by Spotify. Spotify is the registered trade mark of the Spotify Group
@@ -105,3 +107,5 @@ python2.6 ./server.py
   * Enjoy :)
 
 = Clients =
+ * Mobile browser: http://m.dogvibes.com
+ * Desktop browser: http://www.dogvibes.com
