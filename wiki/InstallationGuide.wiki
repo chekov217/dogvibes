@@ -82,9 +82,17 @@ This is quite heavy at the moment (500+Mb)
 wget http://developer.spotify.com/download/libspotify/libspotify-0.0.4-darwin.zip
 unzip libspotify-0.0.4-darwin.zip
 cd libspotify-0.0.4-darwin
-cp libspotify.framework/libspotify /opt/local/lib/libspotify.so
-cp libspotify.framework/Headers/api.h /opt/local/include/api.h
+copy and preserve links libspotify.framework/libspotify to /opt/local/lib/libspotify.so did 
+cp libspotify.framework/Headers/api.h /opt/local/include/spotify/api.h
 cp -r libspotify.framework /Libraries
+}}}
+
+This version of libSystem.B.dynlib seems to miss symbol ___bzero
+{{{
+nm /usr/lib/libSystem.B.dylib | grep bzero
+00058bd0 T _bzero
+otool -L /usr/lib/libSystem.B.dylib
+/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 111.1.5)
 }}}
   
 == gst-spot-src ==
