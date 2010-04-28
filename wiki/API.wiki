@@ -71,7 +71,7 @@ POST /playlist?name
 GET /playlist/{id}
 POST /amp/{id}/queue/set?id
 POST /amp/{id}/queue/add?uri&index
-POST /amp/{id}/queue/move?track_id&position
+POST /amp/{id}/queue/move?id&position
 GET /amp/{id}/queue
 
 POST /amp/{id}/control/next
