@@ -117,8 +117,16 @@ controller.setVolume?value
 }}}
 
 === !WebSocket events ===
+
+Fields are:
+event: type of event
+data: new data to update the UI with
+user: if a user was responsible for the change, this field is present
+
 {{{
 { event: { name: 'playlist', data: { name: 'Favourites', tracks: [...] }}}
-{ event: { name: 'time', data: 200100 }}
+{ event: { name: 'time', data: 130000 }}
+{ event: { name: 'volume', data: <track> }}
+{ event: { name: 'trackUpdated', data: <track>, user: 'Musungen' }}
 ...
 }}}
