@@ -87,7 +87,7 @@ GET /amp/{id}/status
 
 !WebSocket events:
 {{{
-{ event: 'playlist', data: { name: 'Favourites', tracks: [...] }}
-{ event: 'time', data: 200100 }
+{ event: { name: 'playlist', data: { name: 'Favourites', tracks: [...] }}}
+{ event: { name: 'time', data: 200100 }}
 ...
 }}}
