@@ -84,3 +84,10 @@ POST /amp/{id}/control/pause
 {GET,POST} /amp/{id}/volume
 GET /amp/{id}/status
 }}}
+
+!WebSocket events:
+{{{
+{ event: 'playlist', data: { name: 'Favourites', tracks: [...] }}
+{ event: 'time', data: 200100 }
+...
+}}}
