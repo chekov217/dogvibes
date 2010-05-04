@@ -85,7 +85,37 @@ POST /amp/{id}/control/pause
 GET /amp/{id}/status
 }}}
 
-!WebSocket events:
+== Alternate new API draft ==
+
+{{{
+<username>.getPlaylists
+<username>.getSpeakers
+<username>.getAmps
+<username>.search?query
+
+playlist.new?name
+playlist.activate?track
+playlist.get
+
+amp.getQueue
+amp.getController
+amp.getEvents
+
+queue.activate?track
+queue.add?uri&index
+queue.move?id&position
+
+controller.next
+controller.previous
+controller.play
+controller.stop
+controller.pause
+controller.getPosition
+controller.setPosition?msec
+controller.getVolume?value
+controller.setVolume?value
+
+=== !WebSocket events ===
 {{{
 { event: { name: 'playlist', data: { name: 'Favourites', tracks: [...] }}}
 { event: { name: 'time', data: 200100 }}
