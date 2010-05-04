@@ -93,13 +93,15 @@ GET /amp/{id}/status
 <username>.getAmps
 <username>.search?query
 
-playlist.new?name
-playlist.activate?track
-playlist.get
-
 amp.getQueue
 amp.getController
 amp.getEvents
+
+playlist.new?name
+playlist.activate?track
+playlist.get
+playlist.remove
+playlist.removeTrack?track
 
 queue.activate?track
 queue.add?uri&index
@@ -116,15 +118,47 @@ controller.getVolume
 controller.setVolume?value
 }}}
 
+=== Objects ===
+
+(USERNAME)
+{{{
+  id: <string>
+}}}
+
+Amp:
+{{{
+  id: <string>
+}}}
+
+Controller:
+{{{
+  id: <string>
+}}}
+
+Playlist:
+{{{
+  id: <string>
+  name: <string>
+}}}
+
+Track:
+{{{
+  id: <string>
+  name: <string>
+  artist: <string>
+  duration <int> (ms)
+}}}
+
 === !WebSocket events ===
 
 Fields are:
-event: type of event
-data: new data to update the UI with
-user: if a user was responsible for the change, this field is present
+  * event: type of event
+  * data: new data to update the UI with
+  * user: if a user was responsible for the change, this field is present
 
 {{{
 { event: { name: 'playlist', data: { name: 'Favourites', tracks: [...] }}}
+{ event: { name: 'playlists', data: [ 'Favourites', 'Jazz', '80s' ] }}
 { event: { name: 'time', data: 130000 }}
 { event: { name: 'volume', data: <track> }}
 { event: { name: 'trackUpdated', data: <track>, user: 'Musungen' }}
