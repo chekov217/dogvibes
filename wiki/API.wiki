@@ -112,8 +112,9 @@ controller.stop
 controller.pause
 controller.getPosition
 controller.setPosition?msec
-controller.getVolume?value
+controller.getVolume
 controller.setVolume?value
+}}}
 
 === !WebSocket events ===
 {{{
