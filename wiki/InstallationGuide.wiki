@@ -54,12 +54,8 @@ make install #run as privileged user (i.e. sudo)
 == Dependencies ==
 This is quite heavy at the moment (500+Mb)
   * Install the latest Xcode from Apple
-  * Install macports (macports.org)
-  * sudo port install py26-gst-python
-  * sudo port install py26-cjson
-  * sudo port install py26-pil
-  * sudo port install gst-plugins-good
-  * sudo port install libvorbis
+  * Install [http://www.macports.org/install.php MacPorts] “dmg” disk images
+  * sudo port install py26-gst-python py26-cjson py26-pil gst-plugins-good libvorbis
   * Test your installation with gst-launch:
     `gst-launch audiotestsrc ! audioconvert ! osxaudiosink`
 <wiki:comment>
