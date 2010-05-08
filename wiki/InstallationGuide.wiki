@@ -32,7 +32,7 @@ For gentoo, use emerge instead. Get python-cjson from here and add it to a custo
 {{{
 wget http://developer.spotify.com/download/libspotify/libspotify-0.0.4-linux6-i686.tar.gz
 # use x86_64 if needed, see the site
-tar -xvf http://developer.spotify.com/download/libspotify/libspotify-0.0.4-linux6-i686.tar.gz
+tar -xvf libspotify-0.0.4-linux6-i686.tar.gz
 cd libspotify-0.0.4-linux6-i686
 make install prefix=/usr #run as privileged user (i.e. sudo)
 ldconfig -v #run as privileged user (i.e. sudo)
@@ -55,7 +55,7 @@ make install #run as privileged user (i.e. sudo)
 This is quite heavy at the moment (500+Mb)
   * Install the latest Xcode from Apple
   * Install [http://www.macports.org/install.php MacPorts] “dmg” disk images
-  * sudo port install py26-gst-python py26-cjson py26-pil gst-plugins-good libvorbis
+  * sudo port install py26-gst-python py26-cjson py26-pil gst-plugins-good libvorbis py26-twisted
   * Test your installation with gst-launch:
     `gst-launch audiotestsrc ! audioconvert ! osxaudiosink`
 <wiki:comment>
