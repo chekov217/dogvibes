@@ -17,9 +17,9 @@ These instructions apply for Ubuntu 9.04 and might have to be altered for other 
 Start with installing all dependencies and tools for building dogvibes remember to run as privileged user (i.e. sudo):
 
 {{{
-apt-get install build-essential cvs subversion git git-core flex bison libglib2.0-dev autoconf \
-libtool libxml2-dev gtk-doc-tools libmp3lame-dev libmad0-dev liboil-dev libasound-dev libdbus-glib-1-dev \
-libexpat1-dev libstdc++6-4.3-dev libsqlite3-dev python-tagpy python-sqlite libid3tag0-dev python-cjson \
+apt-get install subversion libglib2.0-dev autoconf \
+libtool libxml2-dev liboil-dev libasound-dev \
+libexpat1-dev libsqlite3-dev python-tagpy python-sqlite python-cjson \
 python-twisted libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev \
 gstreamer0.10-plugins-base gstreamer0.10-plugins-good gstreamer0.10-plugins-bad gstreamer0.10-plugins-ugly
 }}}
