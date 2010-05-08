@@ -18,8 +18,8 @@ Start with installing all dependencies and tools for building dogvibes remember 
 
 {{{
 apt-get install subversion libglib2.0-dev autoconf \
-libtool libxml2-dev liboil-dev libasound-dev \
-libexpat1-dev libsqlite3-dev python-tagpy python-sqlite python-cjson \
+libtool libxml2-dev liboil-dev libasound-dev python-gst0.10\
+libexpat1-dev libsqlite3-dev python-tagpy python-sqlite python-cjson python-imaging \
 python-twisted libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev \
 gstreamer0.10-plugins-base gstreamer0.10-plugins-good gstreamer0.10-plugins-bad gstreamer0.10-plugins-ugly
 }}}
