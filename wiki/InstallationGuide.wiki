@@ -34,7 +34,7 @@ wget http://developer.spotify.com/download/libspotify/libspotify-0.0.4-linux6-i6
 # use x86_64 if needed, see the site
 tar -xvf http://developer.spotify.com/download/libspotify/libspotify-0.0.4-linux6-i686.tar.gz
 cd libspotify-0.0.4-linux6-i686
-make install prefix=/usr/local #run as privileged user (i.e. sudo)
+make install prefix=/usr #run as privileged user (i.e. sudo)
 ldconfig -v #run as privileged user (i.e. sudo)
 }}}
 
@@ -44,7 +44,7 @@ ldconfig -v #run as privileged user (i.e. sudo)
 {{{
 svn checkout http://dogvibes.googlecode.com/svn/trunk/ dogvibes
 cd dogvibes/gst-spot-src
-autogen.sh --prefix=/usr/local 
+autogen.sh --prefix=/usr
 make install #run as privileged user (i.e. sudo)
 }}}
   * Jump to section Start Dogvibes.
