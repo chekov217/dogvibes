@@ -81,7 +81,7 @@ cd libspotify-0.0.4-darwin
 cp libspotify.framework/Versions/0.0.4/libspotify /opt/local/lib/libspotify.so
 mkdir -p /opt/local/include/libspotify
 cp libspotify.framework/Headers/api.h /opt/local/include/libspotify/api.h
-cp -r libspotify.framework /Libraries
+Copy libspotify.framework to /Library/Frameworks. Use Finder!
 }}}
 
 This version of libSystem.B.dynlib seems to miss symbol ___bzero
