@@ -78,7 +78,7 @@ This is quite heavy at the moment (500+Mb)
 wget http://developer.spotify.com/download/libspotify/libspotify-0.0.4-darwin.zip
 unzip libspotify-0.0.4-darwin.zip
 cd libspotify-0.0.4-darwin
-copy and preserve links libspotify.framework/libspotify to /opt/local/lib/libspotify.so did 
+cp libspotify.framework/Versions/0.0.4/libspotify /opt/local/lib/libspotify.so
 cp libspotify.framework/Headers/api.h /opt/local/include/libspotify/api.h
 cp -r libspotify.framework /Libraries
 }}}
