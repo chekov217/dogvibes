@@ -79,6 +79,7 @@ wget http://developer.spotify.com/download/libspotify/libspotify-0.0.4-darwin.zi
 unzip libspotify-0.0.4-darwin.zip
 cd libspotify-0.0.4-darwin
 cp libspotify.framework/Versions/0.0.4/libspotify /opt/local/lib/libspotify.so
+mkdir -p /opt/local/include/libspotify
 cp libspotify.framework/Headers/api.h /opt/local/include/libspotify/api.h
 cp -r libspotify.framework /Libraries
 }}}
