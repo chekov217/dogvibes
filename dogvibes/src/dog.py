@@ -9,6 +9,7 @@ import cjson
 from urlparse import urlparse
 import sys
 from dogvibes import Dogvibes
+from database import Database
 import signal
 import optparse
 import gobject
@@ -115,7 +116,8 @@ def run_command(nbr, command, user, avatar_url):
 
     request = DogRequest(nbr, user, avatar_url, msg_id, js_callback)
 
-    try:
+#    try:
+    if True:
         if (len(c) < 3):
             raise NameError("Malformed command: %s" % u.path)
 
@@ -154,18 +156,18 @@ def run_command(nbr, command, user, avatar_url):
             params['album'] = album
 
         getattr(klass, method).__call__(**params)
-    except AttributeError as e:
-        error = 1 # No such method
-        logging.warning(e)
-    except TypeError as e:
-        error = 2 # Missing parameter
-        logging.warning(e)
-    except ValueError as e:
-        error = 3 # Internal error, e.g. could not find specified uri
-        logging.warning(e)
-    except NameError as e:
-        error = 4 # Wrong object or other URI error
-        logging.warning(e)
+#    except AttributeError as e:
+#        error = 1 # No such method
+#        logging.warning(e)
+#    except TypeError as e:
+#        error = 2 # Missing parameter
+#        logging.warning(e)
+#    except ValueError as e:
+#        error = 3 # Internal error, e.g. could not find specified uri
+#        logging.warning(e)
+#    except NameError as e:
+#        error = 4 # Wrong object or other URI error
+#        logging.warning(e)
 
     if error != 0: # TODO: Don't do it like this! Won't work when threading off
         request.finish(error = error)
@@ -252,6 +254,8 @@ if __name__ == "__main__":
                         format='%(asctime)s %(levelname)s: %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S')
 
+    # Setup database tables
+    Database()
 
     # Load configuration
     cfg = config.load("dogvibes.conf")

@@ -4,10 +4,12 @@ import random
 import time
 import logging
 import shelve
+from django.forms.models import model_to_dict
 
-from track import Track
-from playlist import Playlist
-from user import User
+from models import Track
+from models import Playlist
+from models import Entry
+from models import User
 
 class DogError(Exception):
     def __init__(self, value):
@@ -30,17 +32,20 @@ class Amp():
         self.bus.connect('message', self.pipeline_message)
 
         # Create amps playqueue
-        if Playlist.name_exists(dogvibes.ampdbname + id) == False:
-            self.dogvibes.create_playlist(dogvibes.ampdbname + id)
-        tqplaylist = Playlist.get_by_name(dogvibes.ampdbname + id)
+        try:
+            tqplaylist = Playlist.objects.get(name=dogvibes.ampdbname + id)
+        except Playlist.DoesNotExist as e:
+            tqplaylist = Playlist.objects.create(name=dogvibes.ampdbname + id)
         self.tmpqueue_id = tqplaylist.id
 
+        # These should be objects instead of indices
         self.active_playlist_id = self.tmpqueue_id
         self.active_playlists_track_id = -1
         self.fallback_playlist_id = -1
         self.fallback_playlists_track_id = -1
 
         self.vote_version = 0
+        self.playlist_version = 0
 
         # sources connected to the amp
         self.sources = shelve.open("amp" + id + ".shelve", writeback=True)
@@ -126,7 +131,7 @@ class Amp():
         if self.is_in_tmpqueue():
             if relative and (tracknbr == 1):
                 # Remove track and goto next track
-                playlist.remove_playlist_tracks_id(self.active_playlists_track_id)
+                Entry.objects.get(id=self.active_playlists_track_id).delete()
                 next_position = 0
             elif relative and (tracknbr == -1):
                 # Do nothing since we are always on top in playqueue
@@ -134,20 +139,21 @@ class Amp():
             else:
                 # Move requested track to top of tmpqueue and play it
                 self.active_playlists_track_id = tracknbr
-                playlist.move_track(self.active_playlists_track_id, 1)
+                #playlist.move_track(self.active_playlists_track_id, 1)
+                Entry.objects.get(id=self.active_playlists_track_id).insert_at(0)
                 next_position = 0
 
             # Check if tmpqueue no longer exists (all tracks has been removed)
-            if playlist.length() <= 0:
+            if playlist.tracks.count() <= 0:
                 # Check if we used to be in a playlist
                 if self.fallback_playlist_id != -1:
                     # Change one track forward in the playlist we used to be in
                     self.active_playlist_id = self.fallback_playlist_id
                     self.active_playlists_track_id = self.fallback_playlists_track_id
-                    playlist = Playlist.get(self.active_playlist_id)
-                    next_position = playlist.get_track_id(self.active_playlists_track_id).position - 1
+                    playlist = Playlist.objects.get(id=self.active_playlist_id)
+                    next_position = Entry.objects.get(id=self.active_playlists_track_id).position
                     next_position = next_position + 1
-                    if next_position >= playlist.length():
+                    if next_position >= playlist.tracks.count():
                         # We were the last song in the playlist we used to be in, just stop everyting
                         self.set_state(gst.STATE_NULL)
                         return
@@ -155,37 +161,36 @@ class Amp():
                     # We have not entered any playlist yet, just stop playback
                     self.set_state(gst.STATE_NULL)
                     return
-        elif (Playlist.get(self.tmpqueue_id).length() > 0) and relative:
+        elif (Playlist.objects.get(id=self.tmpqueue_id).tracks.count() > 0) and relative:
             # Save the playlist that we curently are playing in for later use
             self.fallback_playlist_id = self.active_playlist_id
             self.fallback_playlists_track_id = self.active_playlists_track_id
             # Switch to playqueue
             self.active_playlist_id = self.tmpqueue_id
-            playlist = Playlist.get(self.active_playlist_id)
+            playlist = Playlist.objects.get(id=self.active_playlist_id)
             next_position = 0
         else:
             # We are inside a playlist
             if relative:
-                next_position = track.position - 1 + tracknbr
+                next_position = Entry.objects.get(id=self.active_playlists_track_id).position + tracknbr
             else:
-                try:
-                    next_position = playlist.get_track_id(tracknbr).position - 1
-                    logging.debug("In a playlist trying position %d", next_position)
-                except:
-                    logging.debug("Could not find this position in the active playlist, no action")
-                    return
-
+#                try:
+                    next_position = Entry.objects.get(id=tracknbr).position
+                    logging.debug("In a playlist trying position %d" % next_position)
+ #               except:
+ #                   logging.debug("Could not find this position in the active playlist, no action")
+ #                   return
         try:
-            track = playlist.get_track_nbr(next_position)
+            entry = playlist.entry_set.all()[next_position]
         except:
             self.set_state(gst.STATE_NULL)
             self.active_playlists_track_id = -1
             logging.debug("Could not get to next positon in the active playlist")
             return
 
-        self.active_playlists_track_id = track.ptid
+        self.active_playlists_track_id = entry.id
         self.set_state(gst.STATE_NULL)
-        self.start_track(playlist.get_track_id(self.active_playlists_track_id))
+        self.start_track(entry.track)
 
     def pipeline_message(self, bus, message):
         t = message.type
@@ -261,40 +266,41 @@ class Amp():
 
     def fetch_active_playlist(self):
         try:
-            playlist = Playlist.get(self.active_playlist_id)
+            playlist = Playlist.objects.get(id=self.active_playlist_id)
             return playlist
         except:
             # The play list have been removed or disapperd use tmpqueue as fallback
             self.active_playlist_id = self.tmpqueue_id
             self.active_playlists_track_id = -1
-            playlist = Playlist.get(self.active_playlist_id)
+            playlist = Playlist.objects.get(id=self.active_playlist_id)
             return playlist
 
     def fetch_active_track(self):
-        # Assume that fetch active playlist alreay been run
-        playlist = Playlist.get(self.active_playlist_id)
 
-        if playlist.length() <= 0:
+        # Assume that fetch active playlist alreay been run
+        playlist = Playlist.objects.get(id=self.active_playlist_id)
+
+        if playlist.tracks.count() <= 0:
             return None
 
         if self.active_playlists_track_id != -1:
             try:
-                track = playlist.get_track_id(self.active_playlists_track_id)
-                return track
+                logging.debug("Fetching active track, %d on playlist %d", self.active_playlists_track_id, self.active_playlist_id)
+                return Entry.objects.get(id=self.active_playlists_track_id).track
             except:
-                logging.debug("Could find any active track, %d on playlist %d", self.active_playlists_track_id, self.active_playlist_id)
+                logging.debug("...but failed")
                 return None
         else:
             # Try the first active_play_list id
-            track = playlist.get_track_nbr(0)
-            self.active_playlists_track_id = track.ptid
+            entry = playlist.entry_set.all()[0]
+            self.active_playlists_track_id = entry.id
 
-            if self.start_track(track) == False:
+            if self.start_track(entry.track) == False:
                 self.active_playlists_track_id = -1
                 return None
 
             self.set_state(gst.STATE_PAUSED)
-            return track
+            return entry.track
 
     def get_played_milliseconds(self):
         (pending, state, timeout) = self.pipeline.get_state ()
@@ -323,7 +329,10 @@ class Amp():
 
         # FIXME this should be speaker specific
         status['volume'] = self.dogvibes.speakers[0].get_volume()
-        status['playlistversion'] = Playlist.get_version()
+
+        # TODO: this is sometimes updated even though a playlist is not updated
+        # due to parameters that don't result in a change
+        status['playlistversion'] = self.playlist_version
 
         playlist = self.fetch_active_playlist()
 
@@ -340,7 +349,8 @@ class Amp():
             status['duration'] = int(track.duration)
             status['elapsedmseconds'] = self.get_played_milliseconds()
             status['id'] = self.active_playlists_track_id
-            status['index'] = track.position - 1
+            # TODO: Bad, bad...
+            status['index'] = Entry.objects.get(id=self.active_playlists_track_id).position
         else:
             status['uri'] = "dummy"
 
@@ -358,13 +368,9 @@ class Amp():
         track = self.fetch_active_track()
         if track == None:
             return []
-        return { "album": track.album,
-                 "artist": track.artist,
-                 "title": track.title,
-                 "uri": track.uri,
-                 "duration": track.duration,
-                 "id": self.active_playlists_track_id,
-                 "index": track.position - 1 }
+        t = model_to_dict(track)
+        t["id"] = self.active_playlists_track_id
+        return t
 
     def play_track(self, playlist_id, nbr):
         nbr = int(nbr)
@@ -373,13 +379,14 @@ class Amp():
         logging.debug("Playing track %d on playlist %d", nbr, playlist_id)
 
         # -1 is tmpqueue
-        if (playlist_id == -1):
+        if playlist_id == -1:
             # Save last known playlist that is not the tmpqueue
             if (not self.is_in_tmpqueue()):
                 self.fallback_playlist_id = self.active_playlist_id
                 self.fallback_playlists_track_id = self.active_playlists_track_id
             self.active_playlist_id = self.tmpqueue_id
         else:
+            logging.debug("Setting active playlist %d", playlist_id)
             self.active_playlist_id = playlist_id
 
         self.change_track(nbr, False)
@@ -420,7 +427,13 @@ class Amp():
         request.finish()
 
     def API_getAllTracksInQueue(self, request):
-        request.finish(self.dogvibes.get_all_tracks_in_playlist(self.tmpqueue_id))
+        # TODO: I don't know how to join these automatically
+        tracks = []
+        for entry in Playlist.objects.get(id=self.tmpqueue_id).entry_set.all():
+            t = model_to_dict(entry.track)
+            t["id"] = entry.id # use the unique id instead of track_id
+            tracks.append(t)
+        request.finish(tracks)
 
     def API_getPlayedMilliSeconds(self, request):
         request.finish(self.get_played_milliseconds())
@@ -430,6 +443,7 @@ class Amp():
 
     def API_nextTrack(self, request):
         self.next_track()
+        self.playlist_version += 1
         request.push({'playlist_id': self.get_active_playlist_id()})
         request.push({'state': self.get_state()})
         request.push(self.track_to_client())
@@ -437,6 +451,7 @@ class Amp():
 
     def API_playTrack(self, playlist_id, nbr, request):
         self.play_track(playlist_id, nbr)
+        self.playlist_version += 1
         request.push({'playlist_id': self.get_active_playlist_id()})
         request.push({'state': self.get_state()})
         request.push(self.track_to_client())
@@ -444,6 +459,7 @@ class Amp():
 
     def API_previousTrack(self, request):
         self.change_track(-1, True)
+        self.playlist_version += 1
         request.push({'playlist_id': self.get_active_playlist_id()})
         request.push({'state': self.get_state()})
         request.push(self.track_to_client())
@@ -469,11 +485,62 @@ class Amp():
     #def API_queue(self, uri, position, request): update when clients are ready...
     def API_addVote(self, uri, request):
         track = self.dogvibes.create_track_from_uri(uri)
-        playlist = Playlist.get(self.tmpqueue_id)
+        playlist = Playlist.objects.get(id=self.tmpqueue_id)
+
         playlist.add_vote(track, request.user, request.avatar_url)
 
+        if user.votes_left() < 1:
+            logging.debug("No more votes left for %s" % user.username)
+            return
+
+#        if user.already_voted(track)
+#            logging.debug("%s already voted for track, ignoring" % user.username)
+#            return
+#
+#                if self.has_track(self.id, track_id):
+#            #UPVOTE TRACK
+#            logging.debug("Upvote track_id = %s" % track_id)
+#            playlist_id = self.id
+#            db = Database()
+#            db.commit_statement('''select * from playlist_tracks where playlist_id = ? AND track_id = ? LIMIT 1''', [playlist_id, track_id])
+#            row = db.fetchone()
+#            pos = row['position']
+#            votes = row['votes']
+#
+#            # we dont want to move pass the playing track
+#            if pos <= 2:
+#                logging.debug("no need to move, at position = %s" % pos)
+#            else:
+#                # find all with same amount of votes, and move pass them
+#                db.commit_statement('''select min(position) as new_pos,* from playlist_tracks where playlist_id = ? AND votes = ? AND position > 1''', [playlist_id, votes])
+#                # update votes
+#                row = db.fetchone()
+#                if row == None:
+#                    logging.debug("no need to move, no one to pass with %s votes" % votes)
+#                else:
+#                    #we have some tracks to jump over
+#                    new_pos = row['new_pos']
+#                    if new_pos <= 1:
+#                        logging.debug("cap movement to pos=2 (let playing song be first)")
+#                        new_pos=2
+#                    logging.debug("update pos, move from %s to %s" % (str(pos), str(new_pos)))
+#                    #move them down 1 position
+#                    db.commit_statement('''update playlist_tracks set position = position + 1 where playlist_id = ? and position >= ?''', [self.id, new_pos])
+#                    #put me above them
+#                    db.commit_statement('''update playlist_tracks set position = ? where playlist_id = ? and track_id = ?''', [new_pos, self.id, track_id])
+#
+#            #update the votes on the track
+#            db.commit_statement('''update playlist_tracks set votes = votes + 1 where playlist_id = ? and track_id = ?''', [self.id, track_id])
+#        else:
+#            #ADD TRACK
+#            logging.debug("add track with track_id = %s" % track_id)
+#            self.add_track(track, 1)
+
+
         self.needs_push_update = True
+        self.playlist_version += 1
         self.vote_version += 1
+        request.push({'playlist_version': self.playlist_version})
         request.push({'vote_version': self.vote_version})
         request.finish()
 
@@ -483,55 +550,39 @@ class Amp():
         playlist.remove_vote(track, request.user, request.avatar_url)
 
         self.needs_push_update = True
+        self.playlist_version += 1
         self.vote_version += 1
+        request.push({'playlist_version': self.playlist_version})
         request.push({'vote_version': self.vote_version})
         request.finish()
 
     def API_queue(self, uri, request):
-        position = -1 #put tracks last in queue as temporary default...
+        playlist = Playlist.objects.get(id=self.tmpqueue_id)
         tracks = self.dogvibes.create_tracks_from_uri(uri)
-        playlist = Playlist.get(self.tmpqueue_id)
+        [Entry.objects.create(playlist=playlist, track=track) for track in tracks]
 
-        if position == "1":
-            #act as queue and play
-            rmtrack = None
-
-            # If in tmpqueue and state is playing and there are tracks in tmpqueue.
-            # Then remove the currently playing track. Since we do not want to queue tracks
-            # from just "clicking around".
-            if self.is_in_tmpqueue() and self.get_state() == 'playing' and playlist.length() >= 1:
-                rmtrack = playlist.get_track_nbr(0).ptid
-
-            id = playlist.add_tracks(tracks, position)
-
-            self.play_track(playlist.id, id)
-
-            if rmtrack != None:
-                playlist.remove_playlist_tracks_id(rmtrack)
-        else:
-            playlist.add_tracks(tracks, position)
-
+        self.playlist_version += 1
         self.needs_push_update = True
         request.finish()
 
     def API_queueAndPlay(self, uri, request):
-        tracks = self.dogvibes.create_tracks_from_uri(uri)
-        playlist = Playlist.get(self.tmpqueue_id)
-
-        rmtrack = None
 
         # If in tmpqueue and state is playing and there are tracks in tmpqueue.
         # Then remove the currently playing track. Since we do not want to queue tracks
         # from just "clicking around".
-        if self.is_in_tmpqueue() and self.get_state() == 'playing' and playlist.length() >= 1:
-            rmtrack = playlist.get_track_nbr(0).ptid
+        playlist = Playlist.objects.get(id=self.active_playlist_id)
+        if self.is_in_tmpqueue() and self.get_state() == 'playing' and playlist.tracks.count() >= 1:
+            playlist.entry_set.all()[0].delete()
 
-        id = playlist.add_tracks(tracks, 1)
-        self.play_track(playlist.id, id)
+        tracks = self.dogvibes.create_tracks_from_uri(uri)
+        e = None
+        queue = Playlist.objects.get(id=self.tmpqueue_id)
+        for track in tracks:
+            e = Entry(playlist=queue, track=track)
+            e.insert_at(0)
+        self.play_track(queue.id, e.id)
 
-        if rmtrack != None:
-            playlist.remove_playlist_tracks_id(rmtrack)
-
+        self.playlist_version += 1
         self.needs_push_update = True
         request.finish()
 
@@ -542,10 +593,12 @@ class Amp():
         if (track_id == self.active_playlist_id):
             logging.warning("Not allowed to remove playing track")
             request.finish(error = 3)
+            return
 
-        playlist = Playlist.get(self.tmpqueue_id)
-        playlist.remove_playlist_tracks_id(track_id)
+        Entry.objects.get(id=track_id).delete()
         self.needs_push_update = True
+
+        self.playlist_version += 1
         self.vote_version += 1
         request.push({'vote_version': self.vote_version})
         request.finish()
@@ -564,6 +617,7 @@ class Amp():
                 playlist = Playlist.get(self.tmpqueue_id)
                 playlist.remove_playlist_tracks_id(track_id)
                 self.needs_push_update = True
+        self.playlist_version += 1
         self.vote_version += 1
         request.push({'vote_version': self.vote_version})
         request.finish()
@@ -594,5 +648,6 @@ class Amp():
         request.finish(User.get_activity(int(limit)))
 
     def API_getUserInfo(self, request):
-        user = User.find_by_or_create_from_username(request.user, request.avatar_url)
-        request.finish(user.serialize())
+        user, created = User.objects.get_or_create(username=request.user,
+                                                   avatar_url=request.avatar_url)
+        request.finish(model_to_dict(user))
