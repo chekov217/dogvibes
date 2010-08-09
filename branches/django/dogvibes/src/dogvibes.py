@@ -21,10 +21,13 @@ from albumart import AlbumArt
 from devicespeaker import DeviceSpeaker
 from fakespeaker import FakeSpeaker
 
-from track import Track
-from playlist import Playlist
-from user import User
+from models import Track
+from models import Playlist
+from models import User
+from models import Entry
 from database import Database
+
+from django.forms.models import model_to_dict
 
 class Dogvibes():
     ampdbname = "qurkloxuiikkolkjhhf"
@@ -121,19 +124,21 @@ class Dogvibes():
 
     def do_search(self, query, request):
         ret = []
-        for name,source in self.sources.iteritems():
-            if query.startswith(source.search_prefix + ":"):
-                newquery = query.split(":",1)
-                ret = source.search(newquery[1])
-                request.finish(ret)
-                return
+#        for name,source in self.sources.iteritems():
+#            if query.startswith(source.search_prefix + ":"):
+#                newquery = query.split(":",1)
+#                ret = source.search(newquery[1])
+#                request.finish(ret)
+#                return
 
         #if no prefix, just use spotify, if there exists such a source
         for name,source in self.sources.iteritems():
             if source.search_prefix == "spotify":
-                ret = source.search(query)
+                tracks = source.search(query)
+                ret = [model_to_dict(track) for track in tracks]
                 request.finish(ret)
-                return
+                return # TODO: shouldn't we continue here?
+
         request.finish(ret)
 
     def fetch_albumart(self, artist, album, size, request):
@@ -188,76 +193,99 @@ class Dogvibes():
                          args=(artist, album, size, request)).start()
 
     def API_createPlaylist(self, name, request):
-        self.create_playlist(name)
+        Playlist.objects.create(name=name)
         request.finish()
 
     def API_removePlaylist(self, id, request):
-        Playlist.remove(id)
+        playlist = Playlist.objects.get(id=id)
+        playlist.tracks.clear() # TODO: check this!
+        playlist.delete()
         self.needs_push_update = True
         request.finish()
 
     def API_addTrackToPlaylist(self, playlist_id, uri, request):
         track = self.create_track_from_uri(uri)
         try:
-            playlist = Playlist.get(playlist_id)
-        except ValueError as e:
+            playlist = Playlist.objects.get(id=playlist_id)
+            e = Entry.objects.create(playlist=playlist, track=track)
+#        except ValueError as e:
+        except:
             raise
+
         self.needs_push_update = True
-        request.finish(playlist.add_track(track, 0))
-        
+        request.finish() # TODO: do we need to return anything here??
+#        request.finish(playlist.add_track(track, 0))
+
     def API_addTracksToPlaylist(self, playlist_id, uri, request):
         tracks = self.create_tracks_from_uri(uri)
         try:
-            playlist = Playlist.get(playlist_id)
-        except ValueError as e:
+            playlist = Playlist.objects.get(id=playlist_id)
+#        except ValueError as e:
+        except:
             raise
         self.needs_push_update = True
-        request.finish(playlist.add_tracks(tracks, -1))
-        
+
+        for track in tracks:
+            Entry.objects.create(playlist=playlist, track=track)
+        request.finish()
+#        request.finish(playlist.add_tracks(tracks, -1))
+
     def API_removeTrackFromPlaylist(self, playlist_id, track_id, request):
-        try:
-            playlist = Playlist.get(playlist_id)
-            playlist.remove_playlist_tracks_id(int(track_id))
-        except ValueError as e:
-            raise
-        self.needs_push_update = True
+#        try:
+#            playlist = Playlist.get(playlist_id)
+#            playlist.remove_playlist_tracks_id(int(track_id))
+#        except ValueError as e:
+#            raise
+#        self.needs_push_update = True
+        print "not implemented 1"
         request.finish()
 
     def API_removeTracksFromPlaylist(self, playlist_id, track_ids, request):
-        try:
-            playlist = Playlist.get(playlist_id)
-            for track_id in track_ids.split(','):
-                # don't crash on railing comma
-                if track_id != '':
-                    playlist.remove_playlist_tracks_id(int(track_id))
-        except ValueError as e:
-            raise
-        self.needs_push_update = True
+#        try:
+#            playlist = Playlist.get(playlist_id)
+#            for track_id in track_ids.split(','):
+#                # don't crash on railing comma
+#                if track_id != '':
+#                    playlist.remove_playlist_tracks_id(int(track_id))
+#        except ValueError as e:
+#            raise
+#        self.needs_push_update = True
+        print "not implemented 2"
         request.finish()
 
     def API_getAllPlaylists(self, request):
-        all_playlists = [playlist.to_dict() for playlist in Playlist.get_all()]
-        all_playlists = filter(lambda x:x['name'][0:len(self.ampdbname)] != self.ampdbname,all_playlists)
-        request.finish(all_playlists)
+        ps = [model_to_dict(p) for p in Playlist.objects.exclude(name=self.ampdbname+"0")]
+        request.finish(ps)
 
     def API_getAllTracksInPlaylist(self, playlist_id, request):
-        request.finish(self.get_all_tracks_in_playlist(playlist_id))
+        # TODO: I don't know how to join these automatically
+        tracks = []
+        for entry in Playlist.objects.get(id=playlist_id).entry_set.all():
+            t = model_to_dict(entry.track)
+            t["id"] = entry.id # use the unique id instead of track_id
+            tracks.append(t)
+        request.finish(tracks)
 
     def API_renamePlaylist(self, playlist_id, name, request):
         try:
-            Playlist.rename(playlist_id, name)
-        except ValueError as e:
+            # TODO: is there a "update" method?
+            p = Playlist.objects.get(id=playlist_id)
+            p.name = name
+            p.save()
+        #except ValueError as e:
+        except:
             raise
         self.needs_push_update = True
         request.finish()
 
     def API_moveTrackInPlaylist(self, playlist_id, track_id, position, request):
-        try:
-            playlist = Playlist.get(playlist_id)
-            playlist.move_track(int(track_id), int(position))
-        except ValueError as e:
-            raise
-        self.needs_push_update = True
+#        try:
+#            playlist = Playlist.get(playlist_id)
+#            playlist.move_track(int(track_id), int(position))
+#        except ValueError as e:
+#            raise
+#        self.needs_push_update = True
+        print "API_moveTrackInPlaylist not implemented"
         request.finish()
 
     def API_getSearchHistory(self, nbr, request):

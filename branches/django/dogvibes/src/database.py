@@ -10,20 +10,20 @@ class Database():
         # Table for storing results from indexing a file system
         self.add_statement('''create table if not exists collection (id INTEGER PRIMARY KEY, track_id INTEGER)''')
         # Table for users, probably similar to a twitter user?
-        self.add_statement('''create table if not exists users (id INTEGER PRIMARY KEY, votes INTEGER, username STRING, avatar_url STRING)''')
+        self.add_statement('''create table if not exists users (id INTEGER PRIMARY KEY, vote_id INTEGER, username STRING, avatar_url STRING)''')
         # Table with votes
-        self.add_statement('''create table if not exists votes (id INTEGER PRIMARY KEY, user_id INTEGER, track_id INTEGER)''')
+        self.add_statement('''create table if not exists votes (id INTEGER PRIMARY KEY, user_id INTEGER, entry_id INTEGER)''')
         # Table for storing information of all tracks that has passed through
         # dogvibes in any way, like added to a queue of playlist. This way we
         # are able to keep track of properties such as play count and can
         # reference tracks by an unique dogvibes id, rather than an uri which
         # can change over time.
-        self.add_statement('''create table if not exists tracks (id INTEGER PRIMARY KEY, title TEXT, artist TEXT, album TEXT, album_uri TEXT, uri TEXT, duration INTEGER)''')
+        self.add_statement('''create table if not exists tracks (id INTEGER PRIMARY KEY, title TEXT, artist TEXT, album TEXT, album_uri TEXT, uri TEXT, duration INTEGER, track_number INTEGER, disc_number INTEGER, popularity FLOAT)''')
         # Table for storing playlists
         self.add_statement('''create table if not exists playlists (id INTEGER PRIMARY KEY, name TEXT)''')
         # Table for storing the relation between playlists and tracks, i.e.
         # the contents of a playlists as references
-        self.add_statement('''create table if not exists playlist_tracks (id INTEGER PRIMARY KEY, playlist_id INTEGER, track_id INTEGER, position INTEGER, votes INTEGER)''')
+        self.add_statement('''create table if not exists entry (id INTEGER PRIMARY KEY, playlist_id INTEGER, track_id INTEGER, position INTEGER)''')
         self.commit()
 
     def commit_statement(self, statement, args = []):
@@ -50,14 +50,6 @@ class Database():
         return self.cursor.lastrowid
 
 if __name__ == '__main__':
+    os.remove("dogvibes.db")
     db = Database()
-    db.add_statement('''create table if not exists playlists (id INTEGER PRIMARY KEY, name TEXT)''')
-    db.commit()
-    db.add_statement('''insert into playlists (name) values (?)''', ['sax'])
-    db.add_statement('''insert into playlists (name) values (?)''', ['agaton'])
-    db.commit()
-    db.commit_statement('''insert into playlists (name) values (?)''', ['musungen'])
-    db.add_statement('''insert into playlists (name) values (?)''', ['should not be saved'])
-
-    db.commit_statement('''select * from playlists''')
-    print db.fetchone()
+    db.commit_statement('''insert into playlists (name) values (?)''', ["qurkloxuiikkolkjhhf0"])

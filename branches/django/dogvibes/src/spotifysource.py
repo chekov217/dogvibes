@@ -1,7 +1,7 @@
 import gst
 import urlparse, urllib
 import xml.etree.ElementTree as ET
-from track import Track
+from models import Track
 
 class SpotifySource:
 
@@ -61,15 +61,12 @@ class SpotifySource:
             duration = int(float(e.find('.//{%s}length' % ns).text) * 1000)
             album_uri = "spotify://" + e.find('.//{%s}album' % ns).attrib['href']
 
-        track = Track("spotify://"+uri)
-        track.title = title
-        track.artist = artist
-        track.album = album
-        track.album_uri = album_uri
-        track.duration = duration
+        track, created = Track.objects.get_or_create(uri="spotify://" + uri, title=title,
+                                                    artist=artist, album=album,
+                                                    album_uri=album_uri, duration=duration)
 
         return track
-        
+
     def create_tracks_from_uri(self, uri):
         if uri == None:
             return None
@@ -103,41 +100,27 @@ class SpotifySource:
                 duration = int(float(e.find('.//{%s}length' % ns).text) * 1000)
                 album_uri = "spotify://" + e.find('.//{%s}album' % ns).attrib['href']
 
-            track = Track("spotify://"+uri)
-            track.title = title
-            track.artist = artist
-            track.album = album
-            track.album_uri = album_uri
-            track.duration = duration
+            track, created = Track.objects.get_or_create(uri="spotify://" + uri, title=title,
+                                                         artist=artist, album=album,
+                                                         album_uri=album_uri, duration=duration)
             tracks.append(track)
             return tracks
 
     def create_tracks_from_album(self, album):
         tracks = []
         for track in album['tracks']:
-            tmptrack = Track(track['uri'])
-            tmptrack.title = track['title']
-            tmptrack.artist = track['artist']
-            tmptrack.album = album['name']
-            tmptrack.album_uri = album['uri']
-            tmptrack.duration = track['duration']
+            title = track['title']
+            artist = track['artist']
+            album = album['name']
+            album_uri = album['uri']
+            duration = track['duration']
+            tmptrack = Track(uri, title=title, artist=artist, album=album,
+                             album_uri=album_uri, duration=duration)
             tracks.append(tmptrack)
         return tracks
-        
+
     def create_playlists(self, spot_user, spot_pass):
         pass
-        # Use this when connection to spotify works
-
-        # spotifydogvibes.login(spot_user, spot_pass)
-        #pl = spotifydogvibes.get_playlists()
-        #for l in pl:
-        #    print l
-        #    songs = spotifydogvibes.get_songs(l["index"])
-        #    print "found " + str(len(songs)) + " songs in playlist " + str(l["index"])
-        # -- spam --
-        #for s in songs:
-            #print s
-        #spotifydogvibes.logout()
 
     def relogin(self, user, passw):
         self.user = user
@@ -183,15 +166,16 @@ class SpotifySource:
         ns = "http://www.spotify.com/ns/music/1"
 
         for e in tree.findall('.//{%s}track' % ns):
-            track = {}
-            track['title'] = e.find('.//{%s}name' % ns).text
-            track['artist'] = e.find('.//{%s}artist/{%s}name' % (ns, ns)).text
-            track['album'] = e.find('.//{%s}album/{%s}name' % (ns, ns)).text
-            track['album_uri'] = "spotify://" + e.find('.//{%s}album' % ns).attrib['href']
-            track['duration'] = int(float(e.find('.//{%s}length' % ns).text) * 1000)
-            track['uri'] = "spotify://" + e.items()[0][1]
-            track['popularity'] = e.find('.//{%s}popularity' % ns).text
+            title = e.find('.//{%s}name' % ns).text
+            artist = e.find('.//{%s}artist/{%s}name' % (ns, ns)).text
+            album = e.find('.//{%s}album/{%s}name' % (ns, ns)).text
+            album_uri = "spotify://" + e.find('.//{%s}album' % ns).attrib['href']
+            duration = int(float(e.find('.//{%s}length' % ns).text) * 1000)
+            uri = "spotify://" + e.items()[0][1]
+            popularity = float(e.find('.//{%s}popularity' % ns).text)
             territories = e.find('.//{%s}album/{%s}availability/{%s}territories' % (ns, ns, ns)).text
+            track = Track(uri=uri, title=title, artist=artist, album=album,
+                          album_uri=album_uri, duration=duration, popularity=popularity)
             if 'SE' in territories or territories == 'worldwide':
                 tracks.append(track)
 
@@ -296,5 +280,5 @@ class SpotifySource:
 
 if __name__ == '__main__':
     src = SpotifySource(None, None, None)
-#    print src.get_albums("Kent")
-    print src.get_album("spotify://spotify:album:6G9fHYDCoyEErUkHrFYfs4")
+    t =  src.create_track_from_uri("http://spotify:track:3uqinR4FCjLv28bkrTdNX5")
+#    print src.get_album("spotify://spotify:album:6G9fHYDCoyEErUkHrFYfs4")
