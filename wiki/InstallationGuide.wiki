@@ -101,16 +101,14 @@ sudo make install
 }}}
 = Start Dogvibes =
   * Change to directory where the dogvibes suite is located.
-  * To set Spotify username/password you can user either environment variables (SPOTIFY_USER=user SPOTIFY_PASSWORD=pass) or edit the file 'dogvibes/src/dogvibes.conf'
+  * To set Spotify username/password you can user either environment variables (SPOTIFY_USER=user SPOTIFY_PASSWORD=pass) or edit the file 'dogvibes/src/config.py'
   * Start server.
 {{{
 cd <dogvibes root>/dogvibes/src
-python2.6 ./server.py
+python2.6 ./dog.py
 }}}
-  * Steer your browser to http://www.dogvibes.com.
-  * Enter ws://yourserverip:9999 when promted.
-  * or just start a localwebserver and use clients/spotify_clone and try index.html, use python -m SimpleHTTPServer in the spotify_clone dir to start a simple server.
-  * to use the websockets you need chrome/safari or otherwise use http://ip:2000
+  * Steer your browser to http://www.dogvibes.com/<username>.
+  * or just start a local webserver and open clients/dogbone/index.html, use python -m SimpleHTTPServer in the spotify_clone dir to start a simple server.
   * Enjoy :)
 
 = Clients =
