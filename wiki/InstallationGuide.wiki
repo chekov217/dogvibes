@@ -107,8 +107,8 @@ sudo make install
 cd <dogvibes root>/dogvibes/src
 python2.6 ./dog.py
 }}}
-  * Steer your browser to http://www.dogvibes.com/<username>.
-  * or just start a local webserver and open clients/dogbone/index.html, use python -m SimpleHTTPServer in the spotify_clone dir to start a simple server.
+  * Steer your browser to {{{http://www.dogvibes.com/<username> }}}
+  * or just start a local webserver and open {{{clients/dogbone/index.html}}}, use {{{python -m SimpleHTTPServer}}} in the {{{dogbone}}} directory to start a simple server.
   * Enjoy :)
 
 = Clients =
