@@ -149,6 +149,39 @@ Track:
   duration <int> (ms)
 }}}
 
+== The Simple API Draft ==
+
+{{{
+/search?q=<...>
+/playlists
+/playlists/{id}
+/playlists/{id}?name=<...>
+/enqueue?uri=<...>
+/queue/{id}?pos=<...>  # moveTrack
+/queue # getAllTracksInQueue
+
+/next
+/previous
+/play
+/stop
+/pause
+/position # getPosition
+/position?ms=<...>
+
+/volume
+/position?level=<...>
+/status
+
+/vote?uri=<...>
+/unvote?uri=<...>
+
+/users
+
+}}}
+
+Responses shall be configurable to be in production mode, i.e. slimmed down to as few bytes as possible.
+
+
 === !WebSocket events ===
 
 Fields are:
