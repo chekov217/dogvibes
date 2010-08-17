@@ -158,18 +158,18 @@ Track:
 /playlists/{id}?name=<...>
 /enqueue?uri=<...>
 /queue/{id}?pos=<...>  # moveTrack
-/queue # getAllTracksInQueue
+/queue  # getAllTracksInQueue
 
 /next
 /previous
 /play
 /stop
 /pause
-/position # getPosition
+/position  # getPosition
 /position?ms=<...>
 
-/volume
-/position?level=<...>
+/volume  # getVolume
+/volume?level=<...>  # setVolume
 /status
 
 /vote?uri=<...>
